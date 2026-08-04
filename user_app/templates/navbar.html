@@ -1,0 +1,55 @@
+<!-- templates/components/navbar.html -->
+
+<nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+        <a href="{% url 'homepage' %}"
+           class="text-3xl font-bold bg-gradient-to-r from-green-900 via-green-700 to-green-900 bg-clip-text text-transparent">
+            ApnaShop
+        </a>
+
+        <div class="flex items-center gap-5">
+
+            <input
+                type="text"
+                placeholder="Search Products..."
+                class="hidden lg:block border rounded-full px-20 py-2">
+
+            <div class="hidden md:flex gap-8 font-semibold">
+
+                <a href="{% url 'homepage' %}"
+                   class="hover:text-green-700">
+                    Home
+                </a>
+
+                <a href="#categories"
+                   class="hover:text-green-700">
+                    Categories
+                </a>
+
+                <a href="#products"
+                   class="hover:text-green-700">
+                    Products
+                </a>
+
+                <a href="#offers"
+                   class="hover:text-green-700">
+                    Offers
+                </a>
+
+                <a href="#contact"
+                   class="hover:text-green-700">
+                    Contact
+                </a>
+
+                <a href="{% url 'cart' %}"
+                   class="text-2xl hover:text-green-700">
+                    🛒
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</nav>

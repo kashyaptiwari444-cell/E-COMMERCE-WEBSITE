@@ -1,0 +1,393 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="max-w-6xl mx-auto py-10 px-6">
+
+    <div class="bg-white shadow-xl rounded-xl overflow-hidden">
+
+        <!-- Header -->
+        <div class="bg-teal-600 text-white py-5">
+            <h1 class="text-3xl font-bold text-center">
+                Create New Account
+            </h1>
+            <p class="text-center text-teal-100 mt-2">
+                User Information • Profile Information • Address
+            </p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="p-8">
+            {% csrf_token %}
+
+            <!-- USER DETAILS -->
+            <h2 class="text-xl font-bold text-teal-700 mb-5 border-b pb-2">
+                User Details
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <div>
+                    <label class="font-semibold">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-teal-500"
+                        required>
+                </div>
+
+                <div>
+                    <label class="font-semibold">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-teal-500"
+                        required>
+                </div>
+
+                <div>
+                    <label class="font-semibold">Phone</label>
+                    <input
+                        type="text"
+                        name="phone"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+                </div>
+
+                <div>
+                    <label class="font-semibold">Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        class="w-full mt-2 border rounded-lg px-4 py-3"
+                        required>
+                </div>
+
+            </div>
+
+            <!-- PROFILE -->
+
+            <h2 class="text-xl font-bold text-green-700 mt-10 mb-5 border-b pb-2">
+                User Profile
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <div>
+                    <label class="font-semibold">Full Name</label>
+                    <input
+                        type="text"
+                        name="full_name"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+                </div>
+
+                <div>
+                    <label class="font-semibold">Profile Image</label>
+                    <input
+                        type="file"
+                        name="profile_image"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+                </div>
+
+                <div>
+                    <label class="font-semibold">Gender</label>
+
+                    <select
+                        name="gender"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+
+                        <option value="">Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+                <div>
+                    <label class="font-semibold">Date of Birth</label>
+
+                    <input
+                        type="date"
+                        name="dob"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+
+                </div>
+
+                <div class="md:col-span-2">
+
+                    <label class="font-semibold">Bio</label>
+
+                    <textarea
+                        rows="4"
+                        name="bio"
+                        class="w-full mt-2 border rounded-lg px-4 py-3"></textarea>
+
+                </div>
+
+            </div>
+
+            <!-- ADDRESS -->
+
+            <h2 class="text-xl font-bold text-orange-600 mt-10 mb-5 border-b pb-2">
+                Address Information
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <div>
+                    <label class="font-semibold">Receiver Name</label>
+
+                    <input
+                        type="text"
+                        name="address_name"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+
+                </div>
+
+                <div>
+                    <label class="font-semibold">Phone</label>
+
+                    <input
+                        type="text"
+                        name="address_phone"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+
+                </div>
+
+                <div class="md:col-span-2">
+
+                    <label class="font-semibold">Address Line 1</label>
+
+                    <input
+                        type="text"
+                        name="address_line1"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+
+                </div>
+
+                <div class="md:col-span-2">
+
+                    <label class="font-semibold">Address Line 2</label>
+
+                    <input
+                        type="text"
+                        name="address_line2"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label class="font-semibold">City</label>
+
+                    <input
+                        type="text"
+                        name="city"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label class="font-semibold">State</label>
+
+                    <input
+                        type="text"
+                        name="state"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label class="font-semibold">Pincode</label>
+
+                    <input
+                        type="text"
+                        name="pincode"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+
+                </div>
+
+                <div class="flex items-center mt-8">
+
+                    <input
+                        type="checkbox"
+                        name="is_default"
+                        class="mr-3 h-5 w-5">
+
+                    <label class="font-semibold">
+                        Make Default Address
+                    </label>
+
+                </div>
+
+            </div>
+            <br/>
+            <!-- Buttons -->
+
+            <button
+                type="submit"
+                class="w-full bg-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-teal-700 transition">
+
+                Register
+
+            </button>
+
+       
+
+        <div class="text-center mt-6">
+
+            <p class="text-gray-600">
+                Already have a account?
+
+                <a href="{% url 'login' %}" class="text-teal-600 font-semibold hover:underline">
+                    Login
+                </a>
+
+            </p>
+
+     </form>
+
+    </div>
+
+</div>
+
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | E-Library</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-r from-teal-600 to-cyan-600 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8">
+
+        <h2 class="text-3xl font-bold text-center text-teal-600 mb-6">
+            Register
+        </h2>
+
+        <!-- Error Message -->
+        <!-- Django:
+        {% if error %}
+        <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">
+            {{ error }}
+        </div>
+        {% endif %}
+        -->
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <!-- Django -->
+        {% csrf_token %} 
+
+            <div>
+                    <label class="font-semibold">Username</label>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter your name "
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-teal-500"
+                        required>
+                </div>
+
+            <div >
+
+                <label class="block mb-2 font-semibold text-gray-700">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500">
+
+            </div>
+
+            <div>
+                    <label class="font-semibold">Phone</label>
+                    <input
+                        type="text"
+                        name="phone"
+                        placeholder="Enter your phone"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+                </div>
+
+
+                 <div>
+                    <label class="font-semibold">Address</label>
+                    <input
+                        type="text"
+                        name="address"
+                        placeholder="Enter your Address"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+                </div>
+
+                 <div>
+                    <label class="font-semibold">Image</label>
+                    <input
+                        type="file"
+                        name="profile_image"
+                        class="w-full mt-2 border rounded-lg px-4 py-3">
+                </div>  
+
+
+            <div >
+
+                <label class="block mb-2 font-semibold text-gray-700">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="pwd"
+                    placeholder="Enter your password"
+                    required
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500">
+
+            </div><br/>
+
+            <button
+                type="submit"
+                class="w-full bg-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-teal-700 transition">
+
+                Register
+
+            </button>
+
+        </form>
+
+        <div class="text-center mt-6">
+
+            <p class="text-gray-600">
+                Already have an account?
+
+                <a href="{% url 'login' %}" class="text-teal-600 font-semibold hover:underline">
+                    Login 
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

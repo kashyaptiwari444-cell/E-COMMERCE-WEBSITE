@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-72 bg-teal-700 text-white">
+
+        <div class="p-6 text-center border-b border-teal-500">
+
+            <img src="https://via.placeholder.com/100"
+                 class="w-24 h-24 rounded-full mx-auto border-4 border-white">
+
+            <h2 class="mt-4 text-xl font-bold">John Doe</h2>
+
+            <p class="text-sm text-gray-200">
+                johndoe@gmail.com
+            </p>
+
+        </div>
+
+        <nav class="mt-6">
+
+            <a href="#" class="block px-6 py-3 hover:bg-teal-600">
+                🏠 Dashboard
+            </a>
+
+            <a href="#" class="block px-6 py-3 hover:bg-teal-600">
+                🛒 My Orders
+            </a>
+
+            <a href="#" class="block px-6 py-3 hover:bg-teal-600">
+                ❤️ Wishlist
+            </a>
+
+            <a href="#" class="block px-6 py-3 hover:bg-teal-600">
+                🛍 Cart
+            </a>
+
+            <a href="#" class="block px-6 py-3 hover:bg-teal-600">
+                📍 Address
+            </a>
+
+            <a href="#" class="block px-6 py-3 hover:bg-teal-600">
+                ⚙ Account Settings
+            </a>
+
+            <a href="#" class="block px-6 py-3 hover:bg-red-600">
+                Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="flex-1 p-8">
+
+        <h1 class="text-3xl font-bold text-gray-700 mb-8">
+            User Dashboard
+        </h1>
+
+        <!-- Dashboard Cards -->
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <div class="bg-white rounded-xl shadow p-6 text-center">
+
+                <h2 class="text-4xl font-bold text-teal-600">5</h2>
+
+                <p class="mt-2 font-semibold">
+                    Total Orders
+                </p>
+
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6 text-center">
+
+                <h2 class="text-4xl font-bold text-pink-500">3</h2>
+
+                <p class="mt-2 font-semibold">
+                    Wishlist
+                </p>
+
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6 text-center">
+
+                <h2 class="text-4xl font-bold text-orange-500">2</h2>
+
+                <p class="mt-2 font-semibold">
+                    Cart Items
+                </p>
+
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6 text-center">
+
+                <h2 class="text-4xl font-bold text-green-600">
+                    ₹18,500
+                </h2>
+
+                <p class="mt-2 font-semibold">
+                    Total Spent
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Recent Orders -->
+
+        <div class="bg-white rounded-xl shadow mt-8 p-6">
+
+            <div class="flex justify-between">
+
+                <h2 class="text-xl font-bold">
+                    Recent Orders
+                </h2>
+
+                <button class="bg-teal-600 text-white px-4 py-2 rounded">
+                    View All
+                </button>
+
+            </div>
+
+            <table class="w-full mt-5">
+
+                <thead class="bg-teal-100">
+
+                <tr>
+
+                    <th class="p-3">Order ID</th>
+
+                    <th>Product</th>
+
+                    <th>Amount</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr class="border-b">
+
+                    <td class="p-3">#1025</td>
+
+                    <td>iPhone 16</td>
+
+                    <td>₹89,999</td>
+
+                    <td>
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                            Delivered
+                        </span>
+                    </td>
+
+                </tr>
+
+                <tr class="border-b">
+
+                    <td class="p-3">#1026</td>
+
+                    <td>Headphones</td>
+
+                    <td>₹2,999</td>
+
+                    <td>
+                        <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
+                            Packed
+                        </span>
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td class="p-3">#1027</td>
+
+                    <td>Laptop</td>
+
+                    <td>₹59,000</td>
+
+                    <td>
+                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                            Shipped
+                        </span>
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- Bottom Grid -->
+
+        <div class="grid md:grid-cols-2 gap-6 mt-8">
+
+            <!-- Wishlist -->
+
+            <div class="bg-white rounded-xl shadow p-6">
+
+                <h2 class="text-xl font-bold mb-5">
+                    Wishlist
+                </h2>
+
+                <ul class="space-y-4">
+
+                    <li class="flex justify-between">
+
+                        <span>Apple Watch</span>
+
+                        <button class="text-teal-600">
+                            Move to Cart
+                        </button>
+
+                    </li>
+
+                    <li class="flex justify-between">
+
+                        <span>Gaming Mouse</span>
+
+                        <button class="text-teal-600">
+                            Move to Cart
+                        </button>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- Address -->
+
+            <div class="bg-white rounded-xl shadow p-6">
+
+                <h2 class="text-xl font-bold mb-5">
+                    Default Address
+                </h2>
+
+                <p>
+                    John Doe
+                </p>
+
+                <p>
+                    221B Baker Street
+                </p>
+
+                <p>
+                    Prayagraj, Uttar Pradesh
+                </p>
+
+                <p>
+                    India - 211001
+                </p>
+
+                <button class="mt-5 bg-teal-600 text-white px-5 py-2 rounded">
+                    Edit Address
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Cart Summary -->
+
+        <div class="bg-white rounded-xl shadow mt-8 p-6">
+
+            <h2 class="text-xl font-bold mb-5">
+                Cart Summary
+            </h2>
+
+            <div class="flex justify-between border-b py-2">
+
+                <span>Items</span>
+
+                <span>2</span>
+
+            </div>
+
+            <div class="flex justify-between border-b py-2">
+
+                <span>Total Price</span>
+
+                <span>₹25,999</span>
+
+            </div>
+
+            <div class="flex justify-between py-2 font-bold">
+
+                <span>Discount</span>
+
+                <span class="text-green-600">
+                    ₹2,000
+                </span>
+
+            </div>
+
+            <button class="w-full mt-5 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg">
+
+                Proceed To Checkout
+
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

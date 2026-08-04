@@ -1,0 +1,331 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopEase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100">
+
+     {% include "header.html" %}
+    
+   
+    <!-- ================= Hero ================= -->
+
+    <section
+      id="#"
+      class="bg-green-900 text-white"
+    >
+      <div
+        class="max-w-7xl mx-auto grid md:grid-cols-2 items-center px-10 py-20"
+      >
+        <div>
+          <h1 class="text-5xl font-bold leading-tight">
+            Discover Amazing Products
+          </h1>
+
+          <p class="mt-6 text-lg">Best Quality Products with Amazing Prices.</p>
+
+          <button
+            class="mt-8 bg-white text-green-700 px-8 py-4 rounded-lg font-bold hover:text-white hover:bg-green-700"
+          >
+            Shop Now
+          </button>
+        </div>
+
+        <div class="mt-10 md:mt-0">
+          <img
+            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700"
+            class="rounded-xl shadow-2xl"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Categories ================= -->
+
+    <section id="categories" class="max-w-7xl mx-auto py-16 px-6">
+      <h2 class="text-3xl font-bold mb-10">Shop By Category</h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        {% for category in categories %}
+
+        <a
+          href="#"
+          class="bg-green-900 text-white rounded-xl shadow hover:shadow-xl duration-300 p-5 text-center"
+        >
+        {% if category.image %}
+          <img
+            src="{{ category.image.url }}"
+            class="h-20 w-20 mx-auto object-cover rounded-full"
+          />
+
+          <h3 class="mt-4 font-semibold">{{ category.category_name }}</h3>
+        </a>
+           {% else %}
+            <div class="w-full h-52 bg-gray-200 flex items-center justify-center text-gray-500">
+                No Image
+            </div>
+            {% endif %}
+
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- ================= Featured Products ================= -->
+
+    {% comment %} <section class="bg-white py-16">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between mb-10">
+          <h2 class="text-3xl font-bold">Featured Products</h2>
+
+          <a href="#" class="text-indigo-600 font-semibold"> View All → </a>
+        </div>
+
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {% for product in products %}
+
+          <div
+            class="bg-gray-50 rounded-xl shadow hover:shadow-2xl duration-300 overflow-hidden"
+          >
+            <img
+              src="{{ product.image.url }}"
+              class="h-64 w-full object-cover"
+            />
+
+            <div class="p-5">
+              <h3 class="font-bold text-xl">{{ product.product_name }}</h3>
+
+              <p class="text-gray-500 mt-2">{{ product.brand }}</p>
+
+              <div class="flex justify-between items-center mt-4">
+                <div>
+                  <span class="text-indigo-700 font-bold text-xl">
+                    ₹{{ product.discount_price }}
+                  </span>
+
+                  <span class="line-through text-gray-400">
+                    ₹{{ product.price }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <a
+                  href="#"
+                  class="block text-center bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700"
+                >
+                  View Details
+                </a> 
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+      </div>
+    </section> {% endcomment %}
+
+
+
+
+
+
+       <!-- ================= Offer ================= -->
+
+    <section id="offers" class="bg-green-900 text-white py-20 mt-20  text-white">
+      <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-5xl font-bold">Mega Sale</h2>
+
+        <p class="mt-5 text-xl">Up to 70% OFF</p>
+
+        <button
+          class="mt-8 bg-white text-green-700 px-8 py-4 rounded-lg font-bold hover:text-white hover:bg-green-700"
+        >
+          Shop Sale
+        </button>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+<!-- Header -->
+<div class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-green-900">All Products</h1>
+
+        <form method="GET">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search Products..."
+                class="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Products -->
+<div id="products" class="max-w-7xl mx-auto py-10 px-6" >
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+        {% for product in products %}
+
+        <div class="bg-white rounded-2xl shadow hover:shadow-xl transition duration-300 overflow-hidden">
+
+            {% if product.image %}
+                <img src="{{ product.image.url }}"
+                     class="w-full h-60 object-cover">
+            {% else %}
+                <img src="{% static 'images/no-image.png' %}"
+                     class="w-full h-60 object-cover">
+            {% endif %}
+
+            <div class="p-5">
+
+                <h2 class="text-lg font-bold text-gray-800">
+                    {{ product.product_name }}
+                </h2>
+
+                <p class="text-sm text-gray-500 mt-1">
+                    {{ product.brand }}
+                </p>
+
+                <p class="text-sm text-gray-500">
+                    {{ product.category }}
+                </p>
+
+                <div class="mt-3 flex items-center gap-3">
+                    <span class="text-2xl font-bold text-green-800">
+                         ₹{{ product.price }}
+                    </span>
+
+                    <span class="text-gray-400 line-through">
+                       ₹{{ product.discount_price }}
+                    </span>
+                </div>
+
+                <div class="mt-2">
+                    {% if product.stock > 0 %}
+                        <span class="text-green-600 font-semibold">
+                            In Stock
+                        </span>
+                    {% else %}
+                        <span class="text-red-600 font-semibold">
+                            Out of Stock
+                        </span>
+                    {% endif %}
+                </div>
+
+                <div class="mt-5 flex gap-3">
+
+                    <a href="#"
+                       class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg">
+                        View
+                    </a>
+
+                    <a href="{% url 'add_to_cart' product.id %}"
+                       class="w-full bg-green-900 hover:bg-green-700 text-white text-center py-2 rounded-lg">
+                        Add Cart
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-span-full text-center py-16">
+            <h2 class="text-3xl font-bold text-gray-500">
+                No Products Found
+            </h2>
+        </div>
+
+        {% endfor %}
+
+    </div> 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+    <!-- ================= New Arrivals ================= -->
+{% comment %} 
+    <section class="max-w-7xl mx-auto py-16 px-6">
+      <h2 class="text-3xl font-bold mb-10">New Arrivals</h2>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {% for product in latest_products %}
+
+        <div class="bg-white rounded-xl overflow-hidden shadow">
+          <img
+            src="{{ product.main_image.url }}"
+            class="h-60 w-full object-cover"
+          />
+
+          <div class="p-5">
+            <h3 class="font-bold">{{ product.product_name }}</h3>
+
+            <p class="text-indigo-600 mt-3 font-bold">
+              ₹{{ product.discount_price }}
+            </p>
+          </div>
+        </div>
+
+        {% endfor %}
+      </div>
+    </section> {% endcomment %}
+
+    <!-- ================= Newsletter ================= -->
+
+    <section class="bg-gray-900 text-white py-20">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-4xl font-bold">Subscribe Newsletter</h2>
+
+        <p class="mt-5">Get latest offers & discounts.</p>
+
+        <div class="mt-8 flex">
+          <input
+            type="email"
+            placeholder="Enter Email"
+            class="w-full rounded-l-lg px-5 py-4 text-black"
+          />
+
+          <button class="bg-indigo-600 px-8 rounded-r-lg">Subscribe</button>
+        </div>
+      </div>
+    </section>
+
+    {% include "footer.html" %}
+
+  </body>
+</html>

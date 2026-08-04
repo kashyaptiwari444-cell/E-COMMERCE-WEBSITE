@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      body {
+        background: #f5f5f6;
+      }
+
+      ::-webkit-scrollbar {
+        width: 7px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #c7c7c7;
+        border-radius: 20px;
+      }
+    </style>
+  </head>
+
+  <body method="post">
+    {% csrf_token %}
+
+
+
+     {% include "header.html" %}
+
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- ================= LEFT ================= -->
+
+        <div class="lg:col-span-2 space-y-5">
+          {% if items %} {% for item in items %}
+
+          <!-- PRODUCT CARD -->
+
+          <div class="bg-white border border-gray-200 rounded shadow-sm">
+            <!-- Product -->
+
+            <div class="flex flex-col md:flex-row p-6 gap-5">
+              <!-- Image -->
+
+              <div class="w-36">
+                <img
+                  src="{{ item.product.image.url }}"
+                  class="w-28 h-36 object-cover rounded border mx-auto"
+                />
+              </div>
+
+              <!-- Product Details -->
+
+              <div class="flex-1">
+                <h2 class="text-2xl font-medium text-gray-800">
+                  {{ item.product.name }}
+                </h2>
+
+                <p class="text-gray-500 mt-2">
+                  Brand :
+                  <span class="font-medium"> {{ item.product.brand }} </span>
+                </p>
+
+                <p class="text-gray-500">
+                  Category : {{ item.product.category }}
+                </p>
+
+                <p class="text-gray-500">Quantity : {{ item.quantity }}</p>
+
+                <!-- Rating -->
+
+                <div class="flex items-center mt-4">
+                  <div
+                    class="bg-green-600 text-white text-sm px-2 py-1 rounded"
+                  >
+                    {{ item.product.rating }}★
+                  </div>
+
+                  <span class="ml-3 text-gray-600"> (1,999 Reviews) </span>
+                </div>
+
+                <!-- Price -->
+
+                <div class="flex items-center gap-4 mt-6">
+                  <span class="text-3xl font-bold">
+                    ₹{{ item.product.price }}
+                  </span>
+
+                  <span class="line-through text-gray-400">
+                    ₹{{ item.product.price }}
+                  </span>
+
+                  <span class="text-green-600 font-semibold"> 40% OFF </span>
+                </div>
+
+                <!-- Stock -->
+
+                {% if item.product.stock > 0 %}
+
+                <p class="text-green-600 mt-5 font-semibold">In Stock</p>
+
+                {% else %}
+
+                <p class="text-red-600 mt-5 font-semibold">Out Of Stock</p>
+
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Bottom Buttons -->
+
+            <div class="grid grid-cols-2 border-t">
+              <a
+                href="#"
+                class="text-center py-5 text-xl font-semibold hover:bg-green-500 transition"
+              >
+                Save for Later
+              </a>
+
+              <a
+                href="{% url 'remove_cart_item' item.id %}"
+                class="text-center py-5 border-l text-xl font-semibold hover:bg-red-500 hover:text-black-600 transition"
+              >
+                Remove
+              </a>
+            </div>
+          </div>
+
+          {% endfor %} {% else %}
+
+          <!-- Empty Cart -->
+
+          <div class="bg-white rounded shadow p-12 text-center">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
+              class="w-44 mx-auto"
+            />
+
+            <h2 class="text-3xl font-bold mt-6">Your Cart is Empty</h2>
+
+            <p class="text-gray-500 mt-3">
+              Looks like you haven't added anything yet.
+            </p>
+
+            <a
+              href="{% url 'homepage' %}"
+              class="inline-block mt-8 bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700"
+            >
+              Continue Shopping
+            </a>
+          </div>
+
+          {% endif %}
+        </div>
+
+        <!-- ================= RIGHT SIDE ================= -->
+
+        <div>
+          <div class="sticky top-5">
+            <div class="bg-white border rounded shadow">
+              <div class="bg-gray-100 px-6 py-4">
+                <h2 class="text-2xl font-bold">Price Details</h2>
+              </div>
+
+              <div class="p-6 space-y-5">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">
+                    Price ({{ items.count }} Items)
+                  </span>
+
+                  <span> ₹{{ subtotal }} </span>
+                </div>
+
+                <div class="flex justify-between">
+                  <span> Discount </span>
+
+                  <span class="text-green-600"> -₹{{ discount }} </span>
+                </div>
+
+                <div class="flex justify-between">
+                  <span> Delivery Charges </span>
+
+                  <span class="text-green-600"> FREE </span>
+                </div>
+
+                <div class="flex justify-between">
+                  <span> Platform Fee </span>
+
+                  <span> ₹19 </span>
+                </div>
+
+                <hr />
+
+                <div class="flex justify-between text-2xl font-bold">
+                  <span> Total Amount </span>
+
+                  <span> ₹{{ total }} </span>
+                </div>
+
+                <div
+                  class="bg-green-100 rounded-lg p-4 text-green-700 font-semibold"
+                >
+                  🎉 You'll save ₹{{ discount }} on this order!
+                </div>
+
+                <button
+                  class="w-full bg-yellow-400 hover:bg-yellow-500 py-4 rounded-lg text-xl font-semibold"
+                >
+                  Place Order
+                </button>
+              </div>
+            </div>
+
+            <!-- Secure -->
+
+            <div class="bg-white rounded shadow mt-6 p-5">
+              <div class="flex gap-4">
+                <div class="text-4xl">🛡️</div>
+
+                <div>
+                  <h2 class="font-bold">Safe & Secure Payments</h2>
+
+                  <p class="text-gray-500">Easy Returns</p>
+
+                  <p class="text-gray-500">100% Authentic Products</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     {% include "footer.html" %}
+  </body>
+</html>

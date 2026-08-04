@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<br>
+
+<a href="{% url 'view_category' %}"
+   class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+    🔙🔙 GO Category List 🔙🔙
+</a>
+
+<div class="max-w-3xl mx-auto mt-10 mb-10">
+
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+
+        <!-- Header -->
+        <div class="bg-blue-600 rounded-t-2xl px-8 py-5">
+
+            <h2 class="text-3xl font-bold text-white">
+                Edit Category
+            </h2>
+
+            <p class="text-blue-100 mt-1">
+                Update category details below.
+            </p>
+
+        </div>
+
+        <!-- Form -->
+        <form method="POST" enctype="multipart/form-data" class="p-8 space-y-6">
+
+            {% csrf_token %}
+
+            <!-- Category Name -->
+            <div>
+
+                <label class="block mb-2 font-semibold text-gray-700">
+                    Category Name
+                </label>
+
+                <input
+                    type="text"
+                    name="category_name"
+                    value="{{ category.category_name }}"
+                    required
+                    class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+            </div>
+
+            <!-- Slug -->
+            <div>
+
+                <label class="block mb-2 font-semibold text-gray-700">
+                    Slug
+                </label>
+
+                <input
+                    type="text"
+                    name="slug"
+                    value="{{ category.slug }}"
+                    required
+                    class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+            </div>
+
+            <!-- Current Image -->
+            <div>
+
+                <label class="block mb-2 font-semibold text-gray-700">
+                    Current Image
+                </label>
+
+                {% if category.image %}
+                    <img src="{{ category.image.url }}"
+                         class="w-32 h-32 object-cover rounded-lg border mb-3">
+                {% else %}
+                    <p class="text-gray-500">No Image</p>
+                {% endif %}
+
+            </div>
+
+            <!-- New Image -->
+            <div>
+
+                <label class="block mb-2 font-semibold text-gray-700">
+                    Change Image
+                </label>
+
+                <input
+                    type="file"
+                    name="image"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-3">
+
+            </div>
+
+            <!-- Description -->
+            <div>
+
+                <label class="block mb-2 font-semibold text-gray-700">
+                    Description
+                </label>
+
+                <textarea
+                    rows="5"
+                    name="description"
+                    required
+                    class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ category.description }}</textarea>
+
+            </div>
+
+            <!-- Status -->
+            <div>
+
+                <label class="block mb-2 font-semibold text-gray-700">
+                    Status
+                </label>
+
+                <select
+                    name="status"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                    <option value="Active"
+                        {% if category.status %}selected{% endif %}>
+                        Active
+                    </option>
+
+                    <option value="Inactive"
+                        {% if not category.status %}selected{% endif %}>
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-4">
+
+                <button
+                    type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition">
+
+                    Update Category
+
+                </button>
+
+                <a href="{% url 'view_category' %}"
+                   class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-8 py-3 rounded-xl font-semibold transition">
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

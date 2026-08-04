@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Brand</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <br>
+
+    <a
+        href="{% url 'admin_dash' %}"
+        class="w-full text-left px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+    >
+        🔙🔙 GO Dashboard 🔙🔙
+    </a> 
+    <a
+        href="{% url 'view_brand' %}"
+        class="w-full  text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+    >
+        View Brands 🔎
+    </a>
+
+    <div class="max-w-3xl mx-auto mt-10 mb-10">
+
+        <!-- Card -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+
+            <!-- Header -->
+            <div class="bg-blue-600 rounded-t-2xl px-8 py-5">
+                <h2 class="text-3xl font-bold text-white">
+                    Edit Brand
+                </h2>
+
+                <p class="text-blue-100 mt-1">
+                    Update brand details below.
+                </p>
+            </div>
+
+            <!-- Form -->
+            <form method="POST" enctype="multipart/form-data" class="p-8 space-y-6">
+
+                {% csrf_token %}
+
+                <!-- Brand Name -->
+                <div>
+                    <label class="block mb-2 font-semibold text-gray-700">
+                        Brand Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        value="{{ brand.name }}"
+                        required
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+
+                <!-- Slug -->
+                <div>
+                    <label class="block mb-2 font-semibold text-gray-700">
+                        Slug
+                    </label>
+
+                    <input
+                        type="text"
+                        name="slug"
+                        value="{{ brand.slug }}"
+                        required
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+
+                <!-- Current Logo -->
+                <div>
+                    <label class="block mb-2 font-semibold text-gray-700">
+                        Current Logo
+                    </label>
+
+                    {% if brand.logo %}
+                        <img src="{{ brand.logo.url }}"
+                             alt="Brand Logo"
+                             class="h-24 w-24 object-contain border rounded-lg p-2 bg-white">
+                    {% else %}
+                        <p class="text-gray-500">No logo uploaded.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Change Logo -->
+                <div>
+                    <label class="block mb-2 font-semibold text-gray-700">
+                        Change Logo
+                    </label>
+
+                    <input
+                        type="file"
+                        name="logo"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3"
+                    >
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label class="block mb-2 font-semibold text-gray-700">
+                        Description
+                    </label>
+
+                    <textarea
+                        rows="5"
+                        name="description"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >{{ brand.description }}</textarea>
+                </div>
+
+                <!-- Status -->
+                <div>
+                    <label class="block mb-2 font-semibold text-gray-700">
+                        Status
+                    </label>
+
+                    <select
+                        name="status"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option value="True" {% if brand.status %}selected{% endif %}>
+                            Active
+                        </option>
+
+                        <option value="False" {% if not brand.status %}selected{% endif %}>
+                            Inactive
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-4 pt-4">
+
+                    <button
+                        type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition"
+                    >
+                        Update Brand
+                    </button>
+
+                    <a
+                        href="{% url 'view_brand' %}"
+                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-8 py-3 rounded-xl font-semibold transition"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
