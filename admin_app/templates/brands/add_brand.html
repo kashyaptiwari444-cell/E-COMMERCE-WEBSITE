@@ -1,141 +1,127 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Brand</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  </head>
 
-<body class="bg-gray-100">
-
-    <br>
+  <body class="bg-gray-100">
+    <br />
 
     <a
-        href="{% url 'admin_dash' %}"
-        class="w-full text-left px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+      href="{% url 'admin_dash' %}"
+      class="w-full text-left px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
     >
-        🔙🔙 GO Dashboard 🔙🔙
+      🔙🔙 GO Dashboard 🔙🔙
     </a>
 
     <div class="max-w-3xl mx-auto mt-10 mb-10">
+      <!-- Card -->
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+        <!-- Header -->
+        <div class="bg-green-600 rounded-t-2xl px-8 py-5">
+          <h2 class="text-3xl font-bold text-white">Add New Brand</h2>
 
-        <!-- Card -->
-        <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
-
-            <!-- Header -->
-            <div class="bg-green-600 rounded-t-2xl px-8 py-5">
-                <h2 class="text-3xl font-bold text-white">
-                    Add New Brand
-                </h2>
-
-                <p class="text-green-100 mt-1">
-                    Fill all brand details below.
-                </p>
-            </div>
-
-            <!-- Form -->
-            <form method="POST" enctype="multipart/form-data" class="p-8 space-y-6">
-
-                {% csrf_token %}
-
-                <!-- Brand Name -->
-                <div>
-                    <label class="block mb-2 font-semibold text-gray-700">
-                        Brand Name
-                    </label>
-
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Enter Brand Name"
-                        required
-                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    >
-                </div>
-
-                <!-- Slug -->
-                <div>
-                    <label class="block mb-2 font-semibold text-gray-700">
-                        Slug
-                    </label>
-
-                    <input
-                        type="text"
-                        name="slug"
-                        placeholder="apple"
-                        required
-                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    >
-                </div>
-
-                <!-- Brand Logo -->
-                <div>
-                    <label class="block mb-2 font-semibold text-gray-700">
-                        Brand Logo
-                    </label>
-
-                    <input
-                        type="file"
-                        name="logo"
-                        class="w-full border border-gray-300 rounded-xl px-4 py-3"
-                    >
-                </div>
-
-                <!-- Description -->
-                <div>
-                    <label class="block mb-2 font-semibold text-gray-700">
-                        Description
-                    </label>
-
-                    <textarea
-                        rows="5"
-                        name="description"
-                        placeholder="Write brand description..."
-                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    ></textarea>
-                </div>
-
-                <!-- Status -->
-                <div>
-                    <label class="block mb-2 font-semibold text-gray-700">
-                        Status
-                    </label>
-
-                    <select
-                        name="status"
-                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    >
-                        <option value="True">Active</option>
-                        <option value="False">Inactive</option>
-                    </select>
-                </div>
-
-                <!-- Buttons -->
-                <div class="flex gap-4 pt-4">
-
-                    <button
-                        type="submit"
-                        class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-semibold transition"
-                    >
-                        Save Brand
-                    </button>
-
-                    <button
-                        type="reset"
-                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-8 py-3 rounded-xl font-semibold transition"
-                    >
-                        Clear
-                    </button>
-
-                </div>
-
-            </form>
-
+          <p class="text-green-100 mt-1">Fill all brand details below.</p>
         </div>
 
-    </div>
+        <!-- Form -->
+        <form method="POST" enctype="multipart/form-data" class="p-8 space-y-6">
+          {% csrf_token %}
 
-</body>
+          <!-- Brand Name -->
+          <div>
+            <label class="block mb-2 font-semibold text-gray-700">
+              Brand Name
+            </label>
+
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter Brand Name"
+              required
+              minlength="2"
+              maxlength="50"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+          </div>
+
+          <!-- Slug -->
+          <div>
+            <label class="block mb-2 font-semibold text-gray-700"> Slug </label>
+
+            <input
+              type="text"
+              name="slug"
+              placeholder="apple"
+              required
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+          </div>
+
+          <!-- Brand Logo -->
+          <div>
+            <label class="block mb-2 font-semibold text-gray-700">
+              Brand Logo
+            </label>
+
+            <input
+              type="file"
+              name="logo"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3"
+            />
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label class="block mb-2 font-semibold text-gray-700">
+              Description
+            </label>
+
+            <textarea
+              rows="5"
+              name="description"
+              placeholder="Write brand description..."
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            ></textarea>
+          </div>
+
+          <!-- Status -->
+          <div>
+            <label class="block mb-2 font-semibold text-gray-700">
+              Status
+            </label>
+
+            <select
+              name="status"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              <option value="True">Active</option>
+              <option value="False">Inactive</option>
+            </select>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex gap-4 pt-4">
+            <button
+              type="submit"
+              class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-semibold transition"
+            >
+              Save Brand
+            </button>
+
+            <button
+              type="reset"
+              class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-8 py-3 rounded-xl font-semibold transition"
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

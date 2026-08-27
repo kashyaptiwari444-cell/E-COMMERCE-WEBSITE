@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Product, Category, SubCategory, Brand
 from django.utils.text import slugify
 
+from user_app.models import Register
+
 def admin_dash(request):
     return render(request, 'admin_dash.html')
     
@@ -191,6 +193,9 @@ def delete_product(request, id):
 
 
 
+
+
+
 #============================== Add Category ===========================>>>>>>>>>>>>>>>>
 
 def add_category(request):
@@ -219,7 +224,6 @@ def add_category(request):
     return render(request, "category/add_category.html")
 
 
-
 #============================== View Category ===========================>>>>>>>>>>>>>>>>
 
 def view_category(request):
@@ -228,9 +232,6 @@ def view_category(request):
         "categories": categories
     })
     
-    
-
-
 
 # ============================== Edit Category ==============================>>>>>>>>>>>>>>>>
 
@@ -265,8 +266,6 @@ def edit_category(request, id):
     })
     
     
-  
-
 # ============================== Delete Category ==============================>>>>>>>>>
     
 def delete_category(request, id):
@@ -274,6 +273,14 @@ def delete_category(request, id):
     category.delete()
 
     return redirect("view_category")
+
+
+
+
+
+
+
+
 
 
 
@@ -294,9 +301,6 @@ def add_brand(request):
     return render(request, "brands/add_brand.html")
 
 
-
-
-
 #============================== View Brand ===========================>>>>>>>>>>>>>>>>
 
 def view_brand(request):
@@ -306,8 +310,6 @@ def view_brand(request):
     })
     
     
-
-
 #============================== Edit Brand ===========================>>>>>>>>>>>>>>>>
 
 def edit_brand(request, id):
@@ -328,9 +330,6 @@ def edit_brand(request, id):
     return render(request, "brands/edit_brand.html", {"brand": brand})
 
 
-
-
-
 # ============================== Delete Brand ==============================>>>>>>>>>
     
 def delete_brand(request, id):
@@ -338,3 +337,14 @@ def delete_brand(request, id):
     brand.delete()
 
     return redirect("view_brand")
+
+
+
+
+
+
+
+# ============================== Delete Brand ==============================>>>>>>>>>
+def manageUser(request):
+    users = Register.objects.all().order_by("-id")
+    return render(request, "users/manageUser.html", {"users":users})

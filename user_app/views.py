@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Register, Cart, CartItem
 from admin_app.models import Category, Product
+from django.db.models import Sum
 
 
 #============================= Register Page ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -15,6 +16,7 @@ def register_page(request):
         address = request.POST.get("address")
         pwd = request.POST.get("pwd")
         photo = request.FILES.get("photo")
+        role = request.POST.get("role")
 
         Register.objects.create(
             name=name,
@@ -22,7 +24,8 @@ def register_page(request):
             phone=phone,
             photo=photo,
             address=address,
-            pwd=pwd
+            pwd=pwd,
+            role=role
         )
         messages.success(request, "Registered Successfully")
         return redirect("login")
@@ -57,10 +60,11 @@ def login_page(request):
 def homepage(request):
     categories = Category.objects.all().order_by("-id")
     products = Product.objects.all().order_by("-id")
-    
+   
     return render(request, "homepage.html", {
         "categories": categories,
-        "products":products
+        "products":products,
+      
     })
 
 #============================= User Main DashBoard ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -72,6 +76,15 @@ def user_main_dash(request):
 #============================= User DashBoard ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 def user_dash(request):
     return render(request, "user_dash.html")
+
+
+
+
+
+
+def view_product(request):
+    view_products = get_object_or_404(CartItem, id=id)
+    return render(request, "view_product.html", {"view_products":view_products})
 
 
 
@@ -140,19 +153,37 @@ def cart(request):
 
     if cart:
         items = cart.items.all()
-        subtotal = sum(item.total_price for item in items)
+        subtotal = sum(item.product.price * item.quantity for item in items)
 
+        discount = 0
+        platform_fee = 10
+
+        total = subtotal - discount + platform_fee
+        
+        for item in items:
+            if item.product.discount_price > 0:
+                item.discount_percentage = round(      #round are lower value in a point (.)
+                    (
+                        (item.product.discount_price - item.product.price)
+                        / item.product.discount_price
+                    ) * 100
+                )
+            else:
+                item.discount_percentage = 0
+                
+        
     return render(request, "cart.html", {
         "items": items,
-        "subtotal": subtotal
+        "subtotal": subtotal,
+        "discount": discount,
+        "total": total,
+        "platform_fee":platform_fee
     })
     
     
 
 #============================= Delete Cart Item ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 def remove_cart_item(request, id):
-    if request.method == "POST":
-        cart_item = get_object_or_404(CartItem, id=id)
-        cart_item.delete()
-
+    cart_item = get_object_or_404(CartItem, id=id)
+    cart_item.delete()
     return redirect("cart")

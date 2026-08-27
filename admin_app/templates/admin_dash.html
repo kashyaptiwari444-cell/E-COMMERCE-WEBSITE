@@ -1,4 +1,4 @@
-<!doctype html>
+{% comment %} <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -59,7 +59,7 @@
               View Product
             </a>
 
-            <a
+            {% comment %} <a
                 href="{% url 'view_product' %}"
                 class="w-full inline-block text-center px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition"
             >
@@ -71,7 +71,7 @@
                 class="w-full inline-block text-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-800 transition"
             >
                 Delete Product
-            </a>
+            </a> {% endcomment %}
 
             {% comment %} <button
               class="w-full px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
@@ -83,7 +83,7 @@
               class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
             >
               Upload Images
-            </button> {% endcomment %}
+            </button> % endcomment %}
           </div>
         </div>
 
@@ -124,7 +124,7 @@
             >
               View Category
             </a>
-            <a
+            {% comment %} <a
                 href="{% url 'view_category' %}"
                 class="w-full inline-block text-center px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition"
             >
@@ -136,9 +136,9 @@
                 class="w-full inline-block text-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-800 transition"
             >
                 Delete Category
-            </a>
+            </a> {% endcomment %}
 
-            {% comment %} <li>Category Image</li> {% endcomment %}
+            {% comment %} <li>Category Image</li> { endcomment %}
           </ul>
         </div>
 
@@ -179,7 +179,7 @@
               View Brands
             </a>
 
-            <a
+            {% comment %} <a
                 href="{% url 'view_brand' %}"
                 class="w-full inline-block text-center px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition"
             >
@@ -191,9 +191,9 @@
                 class="w-full inline-block text-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-800 transition"
             >
                 Delete Category
-            </a>
+            </a> {% endcomment %}
             
-            {% comment %} <li>Brand Logo</li> {% endcomment %}
+            {% comment %} <li>Brand Logo</li> { endcomment %}
           </ul>
         </div>
 
@@ -253,10 +253,31 @@
           </div>
 
           <ul class="list-disc pl-6 space-y-2 text-gray-700">
-            <li>View Users</li>
-            <li>Block / Unblock</li>
-            <li>Delete Users</li>
-            <li>User Roles</li>
+            
+             <a
+              href="{% url 'manageUser' %}"
+              class="w-full inline-block text-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+            >
+              View Users
+            </a>
+            <a
+              href="{% url 'manageUser' %}"
+              class="w-full inline-block text-center px-4 py-2 bg-teal-700 text-white rounded-lg hover:bg-teal-900 transition"
+            >
+              Block / Unblock
+            </a>
+            <a
+                href="{% url 'manageUser' %}"
+                class="w-full inline-block text-center px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition"
+            >
+                User Roles
+            </a>
+            <a
+                href="{% url 'manageUser' %}"
+                class="w-full inline-block text-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-800 transition"
+            >
+                Delete User
+            </a>
           </ul>
         </div>
 
@@ -293,4 +314,867 @@
       </div>
     </div>
   </body>
+</html> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>E-Commerce Admin Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#16a34a',
+                        dark: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-100 text-slate-800">
+
+<div class="min-h-screen flex">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="hidden lg:flex w-64 bg-slate-900 text-white flex-col fixed h-screen">
+
+        <!-- Logo -->
+        <div class="h-20 flex items-center px-6 border-b border-slate-700">
+            <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center mr-3">
+                <span class="font-bold text-xl">E</span>
+            </div>
+
+            <div>
+                <h1 class="text-xl font-bold">E-Commerce</h1>
+                <p class="text-xs text-slate-400">Admin Panel</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-4 py-6 space-y-2">
+
+            <p class="text-xs uppercase text-slate-500 font-semibold px-3 mb-3">
+                Dashboard
+            </p>
+
+            <a href="#"
+               class="flex items-center gap-3 px-4 py-3 rounded-xl bg-green-600 text-white">
+                <span>📊</span>
+                Dashboard
+            </a>
+
+            <a href="{% url 'view_product' %}"
+               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+                <span>📦</span>
+                Products
+            </a>
+
+            <a href="{% url 'view_category' %}"
+               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+                <span>🗂️</span>
+                Categories
+            </a>
+
+            <a href="{% url 'view_brand' %}"
+               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+                <span>🏷️</span>
+                Brands
+            </a>
+
+            <a href="{% url 'manageUser' %}"
+               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+                <span>👥</span>
+                Users
+            </a>
+
+            <a href="#orders"
+               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+                <span>🛒</span>
+                Orders
+            </a>
+
+            <a href="#coupons"
+               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+                <span>🎟️</span>
+                Coupons
+            </a>
+
+            <div class="pt-6">
+                <p class="text-xs uppercase text-slate-500 font-semibold px-3 mb-3">
+                    System
+                </p>
+
+                {% comment %} <a href="#"
+                   class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+                    <span>⚙️</span>
+                    Settings
+                </a> {% endcomment %}
+
+                <a href="#"
+                   class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+                    <span>🔐</span>
+                    Logout
+                </a>
+            </div>
+
+        </nav>
+
+        <!-- Admin -->
+        <div class="p-4 border-t border-slate-700">
+
+            <div class="flex items-center gap-3">
+
+                <div class="w-11 h-11 rounded-full bg-green-500 flex items-center justify-center font-bold">
+                    A
+                </div>
+
+                <div>
+                    <p class="font-semibold">Admin</p>
+                    <p class="text-xs text-slate-400">Administrator</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="flex-1 lg:ml-64">
+
+        <!-- TOP HEADER -->
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+
+            <div class="px-5 md:px-8 py-4 flex items-center justify-between">
+
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-900">
+                        Dashboard
+                    </h1>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Welcome back, Admin 👋
+                    </p>
+                </div>
+
+
+                <div class="flex items-center gap-4">
+
+                    <!-- Search -->
+                    <div class="hidden md:flex items-center bg-slate-100 rounded-xl px-4 py-2">
+
+                        <span class="mr-2">🔍</span>
+
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            class="bg-transparent outline-none text-sm w-40"
+                        >
+
+                    </div>
+
+                    <!-- Notification -->
+                    <button class="relative w-10 h-10 bg-slate-100 rounded-xl hover:bg-slate-200">
+                        🔔
+
+                        <span class="absolute -top-1 -right-1 w-5 h-5 text-xs bg-red-500 text-white rounded-full flex items-center justify-center">
+                            3
+                        </span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="p-5 md:p-8">
+
+
+            <!-- ================= STATS ================= -->
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
+
+
+                <!-- Revenue -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+
+                    <div class="flex justify-between items-start">
+
+                        <div>
+                            <p class="text-sm text-slate-500">
+                                Total Revenue
+                            </p>
+
+                            <h2 class="text-3xl font-bold mt-2">
+                                ₹1,24,500
+                            </h2>
+
+                            <p class="text-sm text-green-600 mt-2">
+                                ↑ 12.5% this month
+                            </p>
+                        </div>
+
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-2xl">
+                            💰
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Orders -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+
+                    <div class="flex justify-between items-start">
+
+                        <div>
+                            <p class="text-sm text-slate-500">
+                                Total Orders
+                            </p>
+
+                            <h2 class="text-3xl font-bold mt-2">
+                                1,248
+                            </h2>
+
+                            <p class="text-sm text-green-600 mt-2">
+                                ↑ 8.2% this month
+                            </p>
+                        </div>
+
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">
+                            🛒
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Users -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+
+                    <div class="flex justify-between items-start">
+
+                        <div>
+                            <p class="text-sm text-slate-500">
+                                Total Users
+                            </p>
+
+                            <h2 class="text-3xl font-bold mt-2">
+                                5,420
+                            </h2>
+
+                            <p class="text-sm text-green-600 mt-2">
+                                ↑ 15.3% this month
+                            </p>
+                        </div>
+
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-2xl">
+                            👥
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Products -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+
+                    <div class="flex justify-between items-start">
+
+                        <div>
+                            <p class="text-sm text-slate-500">
+                                Total Products
+                            </p>
+
+                            <h2 class="text-3xl font-bold mt-2">
+                                856
+                            </h2>
+
+                            <p class="text-sm text-green-600 mt-2">
+                                ↑ 5.4% this month
+                            </p>
+                        </div>
+
+                        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-2xl">
+                            📦
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= MANAGEMENT ================= -->
+
+            <div class="flex items-center justify-between mb-5">
+
+                <div>
+                    <h2 class="text-xl font-bold">
+                        Management
+                    </h2>
+
+                    <p class="text-sm text-slate-500">
+                        Manage your store
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8">
+
+
+                <!-- PRODUCTS -->
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+
+                    <div class="flex justify-between">
+
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-2xl">
+                            📦
+                        </div>
+
+                        <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full h-fit">
+                            Products
+                        </span>
+
+                    </div>
+
+                    <h3 class="text-lg font-bold mt-5">
+                        Manage Products
+                    </h3>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Add, view and manage your products.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-3 mt-5">
+
+                        <a
+                            href="{% url 'add_product' %}"
+                            class="text-center bg-green-600 text-white py-2.5 rounded-xl hover:bg-green-700 transition"
+                        >
+                            + Add Product
+                        </a>
+
+                        <a
+                            href="{% url 'view_product' %}"
+                            class="text-center bg-slate-100 text-slate-700 py-2.5 rounded-xl hover:bg-slate-200 transition"
+                        >
+                            View Products
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CATEGORIES -->
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+
+                    <div class="flex justify-between">
+
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">
+                            🗂️
+                        </div>
+
+                        <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full h-fit">
+                            Categories
+                        </span>
+
+                    </div>
+
+                    <h3 class="text-lg font-bold mt-5">
+                        Manage Categories
+                    </h3>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Organize products into categories.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-3 mt-5">
+
+                        <a
+                            href="{% url 'add_category' %}"
+                            class="text-center bg-blue-600 text-white py-2.5 rounded-xl hover:bg-blue-700 transition"
+                        >
+                            + Add Category
+                        </a>
+
+                        <a
+                            href="{% url 'view_category' %}"
+                            class="text-center bg-slate-100 text-slate-700 py-2.5 rounded-xl hover:bg-slate-200 transition"
+                        >
+                            View Categories
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BRANDS -->
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+
+                    <div class="flex justify-between">
+
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-2xl">
+                            🏷️
+                        </div>
+
+                        <span class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full h-fit">
+                            Brands
+                        </span>
+
+                    </div>
+
+                    <h3 class="text-lg font-bold mt-5">
+                        Manage Brands
+                    </h3>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Manage your product brands.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-3 mt-5">
+
+                        <a
+                            href="{% url 'add_brand' %}"
+                            class="text-center bg-purple-600 text-white py-2.5 rounded-xl hover:bg-purple-700 transition"
+                        >
+                            + Add Brand
+                        </a>
+
+                        <a
+                            href="{% url 'view_brand' %}"
+                            class="text-center bg-slate-100 text-slate-700 py-2.5 rounded-xl hover:bg-slate-200 transition"
+                        >
+                            View Brands
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- USERS -->
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+
+                    <div class="flex justify-between">
+
+                        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-2xl">
+                            👥
+                        </div>
+
+                        <span class="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full h-fit">
+                            Users
+                        </span>
+
+                    </div>
+
+                    <h3 class="text-lg font-bold mt-5">
+                        Manage Users
+                    </h3>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Manage customers and user accounts.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-3 mt-5">
+
+                        <a
+                            href="{% url 'manageUser' %}"
+                            class="text-center bg-orange-500 text-white py-2.5 rounded-xl hover:bg-orange-600 transition"
+                        >
+                            View Users
+                        </a>
+
+                        <a
+                            href="{% url 'manageUser' %}"
+                            class="text-center bg-slate-100 text-slate-700 py-2.5 rounded-xl hover:bg-slate-200 transition"
+                        >
+                            Manage
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ORDERS -->
+
+                <div id="orders"
+                     class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+
+                    <div class="flex justify-between">
+
+                        <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-2xl">
+                            🛒
+                        </div>
+
+                        <span class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full h-fit">
+                            Orders
+                        </span>
+
+                    </div>
+
+                    <h3 class="text-lg font-bold mt-5">
+                        Manage Orders
+                    </h3>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Track and update customer orders.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-3 mt-5">
+
+                        <a
+                            href="#"
+                            class="text-center bg-red-500 text-white py-2.5 rounded-xl hover:bg-red-600 transition"
+                        >
+                            View Orders
+                        </a>
+
+                        <a
+                            href="#"
+                            class="text-center bg-slate-100 text-slate-700 py-2.5 rounded-xl hover:bg-slate-200 transition"
+                        >
+                            Status
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COUPONS -->
+
+                <div id="coupons"
+                     class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+
+                    <div class="flex justify-between">
+
+                        <div class="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center text-2xl">
+                            🎟️
+                        </div>
+
+                        <span class="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full h-fit">
+                            Coupons
+                        </span>
+
+                    </div>
+
+                    <h3 class="text-lg font-bold mt-5">
+                        Manage Coupons
+                    </h3>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Create and manage discount coupons.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-3 mt-5">
+
+                        <a
+                            href="#"
+                            class="text-center bg-pink-500 text-white py-2.5 rounded-xl hover:bg-pink-600 transition"
+                        >
+                            + Add Coupon
+                        </a>
+
+                        <a
+                            href="#"
+                            class="text-center bg-slate-100 text-slate-700 py-2.5 rounded-xl hover:bg-slate-200 transition"
+                        >
+                            View Coupons
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= LOWER SECTION ================= -->
+
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+
+                <!-- ORDER SUMMARY -->
+
+                <div class="xl:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm">
+
+                    <div class="p-6 border-b border-slate-200 flex justify-between items-center">
+
+                        <div>
+                            <h2 class="text-lg font-bold">
+                                Recent Orders
+                            </h2>
+
+                            <p class="text-sm text-slate-500">
+                                Latest customer orders
+                            </p>
+                        </div>
+
+                        <a href="#"
+                           class="text-sm text-green-600 font-semibold hover:underline">
+                            View All
+                        </a>
+
+                    </div>
+
+
+                    <div class="overflow-x-auto">
+
+                        <table class="w-full text-left">
+
+                            <thead class="bg-slate-50 text-sm text-slate-500">
+
+                                <tr>
+                                    <th class="px-6 py-4">Order</th>
+                                    <th class="px-6 py-4">Customer</th>
+                                    <th class="px-6 py-4">Amount</th>
+                                    <th class="px-6 py-4">Status</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody class="divide-y divide-slate-100">
+
+                                <tr class="hover:bg-slate-50">
+
+                                    <td class="px-6 py-4 font-semibold">
+                                        #ORD-1001
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        Rahul
+                                    </td>
+
+                                    <td class="px-6 py-4 font-semibold">
+                                        ₹2,499
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-700">
+                                            Delivered
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr class="hover:bg-slate-50">
+
+                                    <td class="px-6 py-4 font-semibold">
+                                        #ORD-1002
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        Aman
+                                    </td>
+
+                                    <td class="px-6 py-4 font-semibold">
+                                        ₹1,850
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700">
+                                            Processing
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr class="hover:bg-slate-50">
+
+                                    <td class="px-6 py-4 font-semibold">
+                                        #ORD-1003
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        Priya
+                                    </td>
+
+                                    <td class="px-6 py-4 font-semibold">
+                                        ₹4,200
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
+                                            Shipped
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+
+                    <h2 class="text-lg font-bold">
+                        Quick Actions
+                    </h2>
+
+                    <p class="text-sm text-slate-500 mt-1 mb-5">
+                        Frequently used actions
+                    </p>
+
+
+                    <div class="space-y-3">
+
+                        <a
+                            href="{% url 'add_product' %}"
+                            class="flex items-center gap-4 p-4 rounded-xl bg-green-50 hover:bg-green-100 transition"
+                        >
+
+                            <div class="w-10 h-10 bg-green-600 text-white rounded-lg flex items-center justify-center">
+                                +
+                            </div>
+
+                            <div>
+                                <p class="font-semibold">
+                                    Add Product
+                                </p>
+
+                                <p class="text-xs text-slate-500">
+                                    Create a new product
+                                </p>
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="{% url 'add_category' %}"
+                            class="flex items-center gap-4 p-4 rounded-xl bg-blue-50 hover:bg-blue-100 transition"
+                        >
+
+                            <div class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center">
+                                +
+                            </div>
+
+                            <div>
+                                <p class="font-semibold">
+                                    Add Category
+                                </p>
+
+                                <p class="text-xs text-slate-500">
+                                    Create a category
+                                </p>
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="{% url 'manageUser' %}"
+                            class="flex items-center gap-4 p-4 rounded-xl bg-purple-50 hover:bg-purple-100 transition"
+                        >
+
+                            <div class="w-10 h-10 bg-purple-600 text-white rounded-lg flex items-center justify-center">
+                                👥
+                            </div>
+
+                            <div>
+                                <p class="font-semibold">
+                                    Manage Users
+                                </p>
+
+                                <p class="text-xs text-slate-500">
+                                    View customer accounts
+                                </p>
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="#"
+                            class="flex items-center gap-4 p-4 rounded-xl bg-orange-50 hover:bg-orange-100 transition"
+                        >
+
+                            <div class="w-10 h-10 bg-orange-500 text-white rounded-lg flex items-center justify-center">
+                                📊
+                            </div>
+
+                            <div>
+                                <p class="font-semibold">
+                                    View Reports
+                                </p>
+
+                                <p class="text-xs text-slate-500">
+                                    Check store analytics
+                                </p>
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= FOOTER ================= -->
+
+            <footer class="mt-10 pt-6 border-t border-slate-200 text-center">
+
+                <p class="text-sm text-slate-500">
+                    © 2026 E-Commerce Admin Panel
+                </p>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
 </html>

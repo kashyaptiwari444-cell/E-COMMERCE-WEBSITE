@@ -105,26 +105,27 @@
                 Category
               </label>
 
+              {% comment %}
               <input
                 type="text"
                 name="category"
                 placeholder="Enter Category like Electronics, Fashion, Home"
                 class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition"
               />
+              {% endcomment %}
 
-              {% comment %}
               <select
+                name="category"
                 class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 focus:ring-4 focus:ring-green-100"
               >
-                <option>Select Category</option>
+                <option value="">Select Category</option>
 
-                <option>Electronics</option>
+                <option value="Electronics">Electronics</option>
 
-                <option>Fashion</option>
+                <option value="Fashion">Fashion</option>
 
-                <option>Home</option>
+                <option value="Home">Home</option>
               </select>
-              {% endcomment %}
             </div>
 
             <!-- Subcategory -->
@@ -134,26 +135,24 @@
                 Sub Category
               </label>
 
+              {% comment %}
               <input
                 type="text"
                 name="subcategory"
                 placeholder="Enter Sub-category like Mobile, Laptop, Accessories"
                 class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition"
               />
+              {% endcomment %}
 
-              {% comment %}
               <select
+                name="subcategory"
                 class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 focus:ring-4 focus:ring-green-100"
               >
-                <option>Select Sub Category</option>
-
-                <option>Mobile</option>
-
-                <option>Laptop</option>
-
-                <option>Accessories</option>
+                <option value="">Select Sub Category</option>
+                <option value="Mobile">Mobile</option>
+                <option value="Laptop">Laptop</option>
+                <option value="Accessories">Accessories</option>
               </select>
-              {% endcomment %}
             </div>
 
             <!-- Brand -->
@@ -163,26 +162,26 @@
                 Brand
               </label>
 
+              {% comment %}
               <input
                 type="text"
                 name="brand"
                 placeholder="Enter Brand Name like Apple, Sumsung, Dell"
                 class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition"
               />
-
-              {% comment %}
+              {% endcomment %}
               <select
+                name="brand"
                 class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3"
               >
-                <option>Select Brand</option>
+                <option value="">Select Brand</option>
 
-                <option>Apple</option>
+                <option value="Apple">Apple</option>
 
-                <option>Samsung</option>
+                <option value="Samsung">Samsung</option>
 
-                <option>Dell</option>
+                <option value="Dell">Dell</option>
               </select>
-              {% endcomment %}
             </div>
 
             <!-- Stock -->

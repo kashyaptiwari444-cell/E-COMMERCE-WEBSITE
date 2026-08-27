@@ -6,7 +6,330 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ShopEase</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome --> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" >
   </head>
+
+
+<!-- ================= PRODUCT VIEW MODAL ================= -->
+
+<div
+    id="productModal"
+    class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm
+           items-center justify-center p-4"
+>
+
+    <div
+        class="bg-white w-full max-w-3xl max-h-[70vh]
+               rounded-2xl shadow-2xl"
+    >
+
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-4 border-b">
+
+            <h2
+                id="modalTitle"
+                class="text-2xl font-bold text-gray-800">
+            </h2>
+
+            <button
+                type="button"
+                onclick="closeProductModal()"
+                class="w-10 h-10 rounded-full bg-gray-100
+                       hover:bg-gray-200 text-gray-700 text-2xl"
+            >
+                &times;
+            </button>
+
+        </div>
+
+
+        <!-- Body -->
+        <div class="overflow-y-auto max-h-[75vh] p-6">
+
+
+            <!-- Image -->
+            <img
+                id="modalImage"
+                src=""
+                alt=""
+                class="w-full h-80 object-cover rounded-xl mb-6"
+            >
+
+
+            <!-- Product Info -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+
+                <!-- Brand -->
+                <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                    <p class="text-sm text-gray-500">
+                        Brand
+                    </p>
+
+                    <p
+                        id="modalBrand"
+                        class="font-bold text-gray-800 mt-1">
+                    </p>
+
+                </div>
+
+
+                <!-- Category -->
+                <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                    <p class="text-sm text-gray-500">
+                        Category
+                    </p>
+
+                    <p
+                        id="modalCategory"
+                        class="font-bold text-gray-800 mt-1">
+                    </p>
+
+                </div>
+
+
+                <!-- Price -->
+                <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                    <p class="text-sm text-gray-500">
+                        Price
+                    </p>
+
+                    <p
+                        id="modalPrice"
+                        class="font-bold text-green-700 mt-1">
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- Price Details -->
+            <div class="mt-6 bg-gray-50 rounded-xl p-5">
+
+                <h3 class="text-xl font-bold text-gray-800 mb-4">
+                    Price Details
+                </h3>
+
+
+                <div class="flex justify-between mb-2">
+
+                    <span class="text-gray-500">
+                        Original Price
+                    </span>
+
+                    <span
+                        id="modalOriginalPrice"
+                        class="line-through text-gray-400">
+                    </span>
+
+                </div>
+
+
+                <div class="flex justify-between">
+
+                    <span class="text-gray-500">
+                        Discount Price
+                    </span>
+
+                    <span
+                        id="modalDiscountPrice"
+                        class="font-bold text-green-700">
+                    </span>
+
+                </div>
+
+
+            </div><br/>
+
+
+            <!-- Add To Cart -->
+            <!-- YE AAPKA ORIGINAL CODE HAI - ISME KOI CHANGE NAHI KIYA -->
+
+            <div>
+
+                <a href="{% url 'add_to_cart' products.0.id %}"
+                   class=" flex justify-center items-center w-full p-9 bg-green-900 hover:bg-green-700 text-white text-center py-2 rounded-lg text-xl font-bold">
+                    Add To Cart
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Footer -->
+        <div class="px-6 py-4 border-t flex justify-end ">
+
+            <button
+                type="button"
+                onclick="closeProductModal()"
+                class="px-6 py-2.5 bg-gray-800 hover:bg-gray-900
+                       text-white font-semibold rounded-xl"
+            >
+                Close
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+function openProductModal(
+    id,
+    name,
+    image,
+    brand,
+    category,
+    price,
+    discountPrice
+) {
+
+
+    // Product Name
+    document.getElementById("modalTitle").textContent = name;
+
+
+
+    // Product Image
+    document.getElementById("modalImage").src = image;
+
+    document.getElementById("modalImage").alt = name;
+
+
+
+    // Brand
+    document.getElementById("modalBrand").textContent =
+        brand || "N/A";
+
+
+
+    // Category
+    document.getElementById("modalCategory").textContent =
+        category || "N/A";
+
+
+
+    // Price
+    document.getElementById("modalPrice").textContent =
+        "₹" + price;
+
+
+
+    // Original Price
+    document.getElementById("modalOriginalPrice").textContent =
+        "₹" + discountPrice;
+
+
+
+    // Discount Price
+    if (
+        discountPrice &&
+        discountPrice !== "None" &&
+        discountPrice !== ""
+    ) {
+
+        document.getElementById("modalDiscountPrice").textContent =
+            "₹" + price;
+
+    } else {
+
+        document.getElementById("modalDiscountPrice").textContent =
+            "No Discount";
+
+    }
+
+
+
+    // Show Modal
+    const modal =
+        document.getElementById("productModal");
+
+
+    modal.classList.remove("hidden");
+
+    modal.classList.add("flex");
+
+
+    // Prevent background scroll
+    document.body.classList.add("overflow-hidden");
+
+}
+
+
+
+function closeProductModal() {
+
+    const modal =
+        document.getElementById("productModal");
+
+
+    modal.classList.add("hidden");
+
+    modal.classList.remove("flex");
+
+
+    document.body.classList.remove("overflow-hidden");
+
+}
+
+
+
+// Close when clicking outside
+document
+    .getElementById("productModal")
+    .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+
+            closeProductModal();
+
+        }
+
+    });
+
+
+
+// Close with Escape
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+        closeProductModal();
+
+    }
+
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <body class="bg-gray-100">
 
@@ -15,65 +338,140 @@
    
     <!-- ================= Hero ================= -->
 
-    <section
-      id="#"
-      class="bg-green-900 text-white"
-    >
-      <div
-        class="max-w-7xl mx-auto grid md:grid-cols-2 items-center px-10 py-20"
-      >
-        <div>
-          <h1 class="text-5xl font-bold leading-tight">
-            Discover Amazing Products
-          </h1>
+    <section id="#" class="bg-green-900 text-white rounded-[35px] overflow-hidden mx-5 my-8">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 items-center px-10 lg:px-20 py-16">
 
-          <p class="mt-6 text-lg">Best Quality Products with Amazing Prices.</p>
+    <!-- Left Content -->
+    <div>
+      <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+        Discover Amazing Products
+      </h1>
 
-          <button
-            class="mt-8 bg-white text-green-700 px-8 py-4 rounded-lg font-bold hover:text-white hover:bg-green-700"
-          >
-            Shop Now
-          </button>
-        </div>
+      <p class="mt-6 text-lg md:text-2xl">
+        Best Quality Products with Amazing Prices.
+      </p>
 
-        <div class="mt-10 md:mt-0">
-          <img
-            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700"
-            class="rounded-xl shadow-2xl"
-          />
-        </div>
-      </div>
-    </section>
 
-    <!-- ================= Categories ================= -->
 
-    <section id="categories" class="max-w-7xl mx-auto py-16 px-6">
-      <h2 class="text-3xl font-bold mb-10">Shop By Category</h2>
+      <a
+       href="#products"
+        class="inline-block mt-16 bg-white text-green-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-green-700 hover:text-white transition duration-200">
+        Shop Now
+    </a>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-        {% for category in categories %}
+    
+    </div>
 
-        <a
-          href="#"
-          class="bg-green-900 text-white rounded-xl shadow hover:shadow-xl duration-300 p-5 text-center"
-        >
-        {% if category.image %}
-          <img
-            src="{{ category.image.url }}"
-            class="h-20 w-20 mx-auto object-cover rounded-full"
-          />
+    <!-- Right Image -->
+    <div class="hidden md:flex justify-end">
+      <img
+        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700"
+        alt="Product"
+        class="w-[420px] lg:w-[520px] object-contain drop-shadow-2xl  rounded-[35px]"
+      />
+    </div>
 
-          <h3 class="mt-4 font-semibold">{{ category.category_name }}</h3>
-        </a>
-           {% else %}
-            <div class="w-full h-52 bg-gray-200 flex items-center justify-center text-gray-500">
-                No Image
+  </div>
+</section>
+
+  
+  <!-- ================= CATEGORIES ================= -->
+
+
+<section id="categories" class="max-w-7xl mx-auto mt-12 px-6">
+
+    <h2 class="text-3xl text-green-800 font-bold mb-8">
+        Shop by Category
+    </h2>
+
+    <div class="overflow-hidden">
+
+        <div class="flex gap-6 w-max animate-scroll hover:[animation-play-state:paused]">
+
+            {% for category in categories %}
+
+            <div class="w-48 flex-shrink-0 bg-white rounded-2xl shadow-md overflow-hidden
+                        hover:shadow-xl transition duration-300">
+
+                {% if category.image %}
+
+                <img
+                    src="{{ category.image.url }}"
+                    alt="{{ category.category_name }}"
+                    class="h-36 w-full object-cover"
+                >
+
+                {% else %}
+
+                <div class="h-36 w-full bg-gray-100 flex items-center justify-center text-gray-500">
+                    No Image
+                </div>
+
+                {% endif %}
+
+                <h3 class="p-4 text-center font-semibold text-gray-800">
+                    {{ category.category_name }}
+                </h3>
+
             </div>
-            {% endif %}
 
-        {% endfor %}
-      </div>
-    </section>
+            {% endfor %}
+
+            <!-- Repeat -->
+
+            {% for category in categories %}
+
+            <div class="w-48 flex-shrink-0 bg-white rounded-2xl shadow-md overflow-hidden">
+
+                {% if category.image %}
+
+                <img
+                    src="{{ category.image.url }}"
+                    alt="{{ category.category_name }}"
+                    class="h-36 w-full object-cover"
+                >
+
+                {% else %}
+
+                <div class="h-36 w-full bg-gray-100 flex items-center justify-center text-gray-500">
+                    No Image
+                </div>
+
+                {% endif %}
+
+                <h3 class="p-4 text-center font-semibold text-gray-800">
+                    {{ category.category_name }}
+                </h3>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+    @keyframes scroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    .animate-scroll {
+        animation: scroll 25s linear infinite;
+    }
+</style>
+ 
+
+
+
+
 
     <!-- ================= Featured Products ================= -->
 
@@ -136,7 +534,83 @@
 
        <!-- ================= Offer ================= -->
 
-    <section id="offers" class="bg-green-900 text-white py-20 mt-20  text-white">
+       <!-- ================= OFFERS ================= -->
+
+<section id="offers" class="max-w-7xl mx-auto mt-12 px-6">
+
+    <h2 class="text-3xl font-bold mb-8 text-green-800">
+        Today's Offers
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="bg-yellow-600 text-white rounded-xl p-8">
+            <h2 class="text-2xl font-bold">
+                Electronics Sale
+            </h2>
+
+            <p class="mt-3">
+                Up to 60% OFF
+            </p>
+        </div>
+
+        <div class="bg-orange-800 text-white rounded-xl p-8">
+            <h2 class="text-2xl font-bold">
+                Fashion Sale
+            </h2>
+
+            <p class="mt-3">
+                Flat 50% OFF
+            </p>
+        </div>
+
+        <div class="bg-green-800 text-white rounded-xl p-8">
+            <h2 class="text-2xl font-bold">
+                Home Essentials
+            </h2>
+
+            <p class="mt-3">
+                Buy 2 Get 1
+            </p>
+        </div>
+
+        <div class="bg-green-800 text-white rounded-xl p-8">
+            <h2 class="text-2xl font-bold">
+                Home Essentials
+            </h2>
+
+            <p class="mt-3">
+                Buy 2 Get 1
+            </p>
+        </div>
+
+        
+        <div class="bg-orange-800 text-white rounded-xl p-8">
+            <h2 class="text-2xl font-bold">
+                Fashion Sale
+            </h2>
+
+            <p class="mt-3">
+                Flat 50% OFF
+            </p>
+        </div>
+
+        <div class="bg-yellow-600 text-white rounded-xl p-8">
+            <h2 class="text-2xl font-bold">
+                Electronics Sale
+            </h2>
+
+            <p class="mt-3">
+                Up to 60% OFF
+            </p>
+        </div>
+
+
+    </div>
+
+</section>
+
+    {% comment %} <section id="offers" class="bg-green-900 text-white py-20 mt-20  text-white">
       <div class="max-w-7xl mx-auto text-center">
         <h2 class="text-5xl font-bold">Mega Sale</h2>
 
@@ -149,9 +623,7 @@
         </button>
       </div>
     </section>
-
-
-
+{% endcomment %}
 
 
 
@@ -178,10 +650,10 @@
 
 
 
-
+<div  id="products">
 
 <!-- Products -->
-<div id="products" class="max-w-7xl mx-auto py-10 px-6" >
+<div class="max-w-7xl mx-auto py-10 px-6" >
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
 
@@ -235,10 +707,30 @@
 
                 <div class="mt-5 flex gap-3">
 
-                    <a href="#"
+                    {% comment %} <a href="{% url "view_product" product.id %}"
                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg">
                         View
-                    </a>
+                    </a> {% endcomment %}
+
+                                
+                    <button
+                        type="button"
+                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg"
+                        onclick="openProductModal(
+                            '{{ product.id }}',
+                            '{{ product.product_name|escapejs }}',
+                            '{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no-image.png' %}{% endif %}',
+                            '{{ product.brand|escapejs }}',
+                            '{{ product.category|escapejs }}',
+                            '{{ product.price }}',
+                            '{{ product.discount_price }}',
+                            '{{ product.stock }}'
+                        )"
+                    >
+                        View
+                    </button>
+
+
 
                     <a href="{% url 'add_to_cart' product.id %}"
                        class="w-full bg-green-900 hover:bg-green-700 text-white text-center py-2 rounded-lg">
@@ -264,7 +756,7 @@
     </div> 
 </div>
 
-
+</div>
 
 
 
@@ -279,12 +771,12 @@
  
 
     <!-- ================= New Arrivals ================= -->
-{% comment %} 
-    <section class="max-w-7xl mx-auto py-16 px-6">
+
+    {% comment %} <section class="max-w-7xl mx-auto py-16 px-6">
       <h2 class="text-3xl font-bold mb-10">New Arrivals</h2>
 
       <div class="grid md:grid-cols-3 gap-8">
-        {% for product in latest_products %}
+        {% for product in products %}
 
         <div class="bg-white rounded-xl overflow-hidden shadow">
           <img
@@ -303,11 +795,11 @@
 
         {% endfor %}
       </div>
-    </section> {% endcomment %}
+    </section>  {% endcomment %}
 
     <!-- ================= Newsletter ================= -->
 
-    <section class="bg-gray-900 text-white py-20">
+    {% comment %} <section class="bg-gray-900 text-white py-20">
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-4xl font-bold">Subscribe Newsletter</h2>
 
@@ -323,7 +815,7 @@
           <button class="bg-indigo-600 px-8 rounded-r-lg">Subscribe</button>
         </div>
       </div>
-    </section>
+    </section> {% endcomment %}
 
     {% include "footer.html" %}
 

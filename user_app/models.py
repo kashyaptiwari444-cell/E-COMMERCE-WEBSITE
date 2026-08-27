@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+
 from admin_app.models import Product
 
 # Create your models here.
@@ -14,7 +14,14 @@ class Register(models.Model):
     photo = models.ImageField(upload_to='photos/')
     address = models.TextField()
     pwd = models.TextField()
-
+    role = models.CharField(
+    max_length=20,
+    choices=[
+        ('admin', 'Admin'),
+        ('student', 'Student'),
+    ],
+    default='student'
+)
     def __str__(self):
         return self.name
     

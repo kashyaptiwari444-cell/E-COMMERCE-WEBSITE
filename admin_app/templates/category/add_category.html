@@ -1,139 +1,144 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Category</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  </head>
 
-<body class="bg-gray-100">
+  <body class="bg-gray-100">
     <br />
-<a
-            href="{% url 'view_category' %}"
-            class="w-full  text-left px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
-          >
-            🔙🔙 GO Category List 🔙🔙
-          </a>
+    <a
+      href="{% url 'view_category' %}"
+      class="w-full text-left px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+    >
+      🔙🔙 GO Category List 🔙🔙
+    </a>
     <div class="max-w-3xl mx-auto mt-10 mb-10">
-        
-        <!-- Card -->
-        <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
-            
-
-            <!-- Header -->
-            <div class="bg-green-600 rounded-t-2xl px-8 py-5">
-                <h2 class="text-3xl font-bold text-white">
-                    Add New Category
-                </h2>
-                <p class="text-green-100 mt-1">
-                    Fill all category details below.
-                </p>
-            </div>
-
-            <!-- Form -->
-    <form method="POST" enctype="multipart/form-data" class="p-8 space-y-6">
-
-        {% csrf_token %}
-                <!-- Category Name -->
-                <div>
-                    <label class="block mb-2 font-semibold text-gray-700">
-                        Category Name
-                    </label>
-
-                    <input
-                        type="text"
-                        name="category_name"
-                        placeholder="Enter Category Name" 
-                        required
-                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    >
-                </div>
-
-                <!-- Slug -->
-                <div>
-                    <label class="block mb-2 font-semibold text-gray-700">
-                        Slug
-                    </label>
-
-                    <input
-                        type="text"
-                        name="slug" 
-                        required
-                        placeholder="electronics"
-                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    >
-                </div>
-
-                <!-- Image -->
-                <div>
-                    <label class="block mb-2 font-semibold text-gray-700">
-                        Category Image
-                    </label>
-
-                    <input
-                        type="file"
-                        name="image" 
-                        required
-                        class="w-full border border-gray-300 rounded-xl px-4 py-3"
-                    >
-                </div>
-
-                <!-- Description -->
-                <div>
-                    <label class="block mb-2 font-semibold text-gray-700">
-                        Description
-                    </label>
-
-                    <textarea
-                        rows="5"
-                        name="description" 
-                        required
-                        placeholder="Write category description..."
-                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    ></textarea>
-                </div>
-
-                <!-- Status -->
-                <div>
-                    <label class="block mb-2 font-semibold text-gray-700">
-                        Status
-                    </label>
-
-                    <select
-                        name="status"
-                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    >
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
-                    </select>
-                </div>
-
-                <!-- Buttons -->
-                <div class="flex gap-4 pt-4">
-
-                    <button
-                        type="submit"
-                        class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-semibold transition"
-                    >
-                        Save Category
-                    </button>
-
-                    <button
-                        type="reset"
-                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-8 py-3 rounded-xl font-semibold transition"
-                    >
-                        Clear
-                    </button>
-
-                </div>
-
-            </form>
-
+      <!-- Card -->
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+        <!-- Header -->
+        <div class="bg-green-600 rounded-t-2xl px-8 py-5">
+          <h2 class="text-3xl font-bold text-white">Add New Category</h2>
+          <p class="text-green-100 mt-1">Fill all category details below.</p>
         </div>
 
-    </div>
+        <!-- Form -->
+        <form method="POST" enctype="multipart/form-data" class="p-8 space-y-6">
+          {% csrf_token %}
+          <!-- Category Name -->
+          <div>
+            <label class="block mb-2 font-semibold text-gray-700">
+              Category Name
+            </label>
 
-</body>
+            <select
+              name="category_name"
+              required
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              <option value="">Select Category</option>
+
+              <option value="Electronics">Electronics</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Home & Kitchen">Home & Kitchen</option>
+              <option value="Beauty & Personal Care">
+                Beauty & Personal Care
+              </option>
+              <option value="Grocery">Grocery</option>
+              <option value="Sports & Fitness">Sports & Fitness</option>
+              <option value="Books">Books</option>
+              <option value="Toys & Games">Toys & Games</option>
+              <option value="Automotive">Automotive</option>
+              <option value="Health">Health</option>
+              <option value="Jewellery">Jewellery</option>
+              <option value="Footwear">Footwear</option>
+              <option value="Bags & Luggage">Bags & Luggage</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Stationery">Stationery</option>
+              <option value="Pet Supplies">Pet Supplies</option>
+            </select>
+          </div>
+
+          <!-- Slug -->
+          <div>
+            <label class="block mb-2 font-semibold text-gray-700"> Slug </label>
+
+            <input
+              type="text"
+              name="slug"
+              required
+              placeholder="electronics"
+              pattern="[a-z0-9-]+"
+              title="Only lowercase letters, numbers and hyphens are allowed"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+          </div>
+
+          <!-- Image -->
+          <div>
+            <label class="block mb-2 font-semibold text-gray-700">
+              Category Image
+            </label>
+
+            <input
+              type="file"
+              name="image"
+              required
+              class="w-full border border-gray-300 rounded-xl px-4 py-3"
+            />
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label class="block mb-2 font-semibold text-gray-700">
+              Description
+            </label>
+
+            <textarea
+              rows="5"
+              name="description"
+              required
+              placeholder="Write category description..."
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            ></textarea>
+          </div>
+
+          <!-- Status -->
+          <div>
+            <label class="block mb-2 font-semibold text-gray-700">
+              Status
+            </label>
+
+            <select
+              name="status"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex gap-4 pt-4">
+            <button
+              type="submit"
+              class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-semibold transition"
+            >
+              Save Category
+            </button>
+
+            <button
+              type="reset"
+              class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-8 py-3 rounded-xl font-semibold transition"
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

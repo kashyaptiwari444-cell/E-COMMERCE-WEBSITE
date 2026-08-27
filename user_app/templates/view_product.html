@@ -1,0 +1,982 @@
+{% comment %} 
+{% block content %}
+
+<div class="min-h-screen bg-gray-50 py-10">
+
+<!-- Header -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-bold text-gray-800">
+            🍴 view_product Gallery 🍴
+        </h1>
+
+        <p class="text-gray-500 mt-2">
+            Explore delicious view_products
+        </p>
+    </div>
+
+
+    {% if view_products %}
+
+    <!-- view_product Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+
+        {% for view_product in view_products %}
+
+        <div class="bg-white rounded-2xl overflow-hidden shadow-md
+                    hover:shadow-xl transition duration-300
+                    border border-gray-100">
+
+            <!-- Image -->
+            <div class="relative">
+
+                <img
+                    src="{{ view_product.image }}"
+                    alt="{{ view_product.name }}"
+                    class="w-full h-64 object-cover"
+                >
+
+                <!-- Rating -->
+                <div class="absolute top-3 right-3
+                            bg-white/95 backdrop-blur-sm
+                            px-3 py-1 rounded-full
+                            text-sm font-semibold text-gray-700 shadow">
+
+                    ⭐ {{ view_product.rating }}
+
+                </div>
+
+            </div>
+
+
+            <!-- Card Body -->
+            <div class="p-5">
+
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    {{ view_product.name }}
+                </h2>
+
+
+                <!-- Cuisine -->
+                <div class="flex items-center justify-between
+                            text-sm mb-3">
+
+                    <span class="text-gray-500">
+                        Cuisine
+                    </span>
+
+                    <span class="font-semibold text-gray-700">
+                        {{ view_product.cuisine }}
+                    </span>
+
+                </div>
+
+
+                <!-- Difficulty -->
+                <div class="flex items-center justify-between
+                            text-sm mb-3">
+
+                    <span class="text-gray-500">
+                        Difficulty
+                    </span>
+
+                    <span class="font-semibold text-gray-700">
+                        {{ view_product.difficulty }}
+                    </span>
+
+                </div>
+
+
+                <!-- Calories -->
+                <div class="flex items-center justify-between
+                            text-sm mb-5">
+
+                    <span class="text-gray-500">
+                        Calories
+                    </span>
+
+                    <span class="font-semibold text-gray-700">
+                        {{ view_product.caloriesPerServing }}
+                    </span>
+
+                </div>
+
+
+                <!-- View view_product -->
+                <button
+                    type="button"
+                    onclick="openview_productModal({{ view_product.id }})"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700
+                           text-white font-semibold
+                           py-3 rounded-xl
+                           transition duration-200">
+
+                    View view_product
+
+                </button>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <!-- Empty -->
+    <div class="text-center py-20">
+
+        <div class="text-6xl mb-4">
+            😔
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-700">
+            No view_products Found
+        </h2>
+
+        <p class="text-gray-500 mt-2">
+            Please try again later.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+```
+
+</div>
+
+<!-- ================= MODAL ================= -->
+
+<div
+    id="view_productModal"
+    class="hidden fixed inset-0 z-50
+           bg-black/60 backdrop-blur-sm
+           flex items-center justify-center
+           p-4"
+>
+
+```
+<div
+    class="bg-white w-full max-w-4xl
+           max-h-[90vh]
+           rounded-2xl shadow-2xl
+           overflow-hidden"
+>
+
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between
+                px-6 py-4
+                border-b bg-white">
+
+        <h2
+            id="modalTitle"
+            class="text-2xl font-bold text-gray-800">
+        </h2>
+
+        <button
+            onclick="closeview_productModal()"
+            class="w-10 h-10 rounded-full
+                   bg-gray-100 hover:bg-gray-200
+                   text-gray-600 text-xl">
+
+            &times;
+
+        </button>
+
+    </div>
+
+
+    <!-- Modal Body -->
+    <div class="overflow-y-auto max-h-[75vh] p-6">
+
+        <!-- Image -->
+        <img
+            id="modalImage"
+            src=""
+            alt=""
+            class="w-full h-80 object-cover
+                   rounded-xl mb-6"
+        >
+
+
+        <!-- view_product Information -->
+        <div class="grid grid-cols-2 md:grid-cols-4
+                    gap-4 mb-7">
+
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                <p class="text-sm text-gray-500">
+                    Cuisine
+                </p>
+
+                <p
+                    id="modalCuisine"
+                    class="font-bold text-gray-800 mt-1">
+                </p>
+
+            </div>
+
+
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                <p class="text-sm text-gray-500">
+                    Difficulty
+                </p>
+
+                <p
+                    id="modalDifficulty"
+                    class="font-bold text-gray-800 mt-1">
+                </p>
+
+            </div>
+
+
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                <p class="text-sm text-gray-500">
+                    Prep Time
+                </p>
+
+                <p
+                    id="modalPrep"
+                    class="font-bold text-gray-800 mt-1">
+                </p>
+
+            </div>
+
+
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                <p class="text-sm text-gray-500">
+                    Cook Time
+                </p>
+
+                <p
+                    id="modalCook"
+                    class="font-bold text-gray-800 mt-1">
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Rating & Calories -->
+        <div class="flex flex-wrap gap-4 mb-8">
+
+            <div
+                class="bg-yellow-50 text-yellow-700
+                       px-4 py-2 rounded-full font-semibold">
+
+                ⭐ <span id="modalRating"></span>
+
+            </div>
+
+            <div
+                class="bg-green-50 text-green-700
+                       px-4 py-2 rounded-full font-semibold">
+
+                🔥 <span id="modalCalories"></span>
+                calories
+
+            </div>
+
+        </div>
+
+
+        <!-- Ingredients -->
+        <div class="mb-8">
+
+            <h3
+                class="text-2xl font-bold text-gray-800 mb-4">
+                Ingredients
+            </h3>
+
+            <ul
+                id="modalIngredients"
+                class="grid grid-cols-1 md:grid-cols-2
+                       gap-3">
+            </ul>
+
+        </div>
+
+
+        <!-- Instructions -->
+        <div>
+
+            <h3
+                class="text-2xl font-bold text-gray-800 mb-4">
+                Instructions
+            </h3>
+
+            <ol
+                id="modalInstructions"
+                class="space-y-4">
+            </ol>
+
+        </div>
+
+    </div>
+
+
+    <!-- Modal Footer -->
+    <div
+        class="px-6 py-4 border-t
+               flex justify-end">
+
+        <button
+            onclick="closeview_productModal()"
+            class="px-6 py-2.5
+                   bg-gray-800 hover:bg-gray-900
+                   text-white font-semibold
+                   rounded-xl">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    const view_products = {{ view_products|safe }};
+
+    function openview_productModal(view_productId) {
+
+        const view_product = view_products.find(
+            item => item.id === view_productId
+        );
+
+        if (!view_product) {
+            return;
+        }
+
+
+        // Title
+        document.getElementById("modalTitle").textContent =
+            view_product.name;
+
+
+        // Image
+        document.getElementById("modalImage").src =
+            view_product.image;
+
+        document.getElementById("modalImage").alt =
+            view_product.name;
+
+
+        // Basic information
+        document.getElementById("modalCuisine").textContent =
+            view_product.cuisine;
+
+        document.getElementById("modalDifficulty").textContent =
+            view_product.difficulty;
+
+        document.getElementById("modalPrep").textContent =
+            view_product.prepTimeMinutes + " min";
+
+        document.getElementById("modalCook").textContent =
+            view_product.cookTimeMinutes + " min";
+
+
+        // Rating
+        document.getElementById("modalRating").textContent =
+            view_product.rating;
+
+
+        // Calories
+        document.getElementById("modalCalories").textContent =
+            view_product.caloriesPerServing;
+
+
+        // Ingredients
+        const ingredients =
+            document.getElementById("modalIngredients");
+
+        ingredients.innerHTML = "";
+
+
+        view_product.ingredients.forEach((item) => {
+
+            const li = document.createElement("li");
+
+            li.className =
+                "bg-gray-50 border border-gray-200 " +
+                "rounded-lg px-4 py-3 text-gray-700";
+
+            li.textContent = "✓ " + item;
+
+            ingredients.appendChild(li);
+
+        });
+
+
+        // Instructions
+        const instructions =
+            document.getElementById("modalInstructions");
+
+        instructions.innerHTML = "";
+
+
+        view_product.instructions.forEach((step, index) => {
+
+            const li = document.createElement("li");
+
+            li.className =
+                "flex gap-4 bg-gray-50 " +
+                "rounded-xl p-4";
+
+            li.innerHTML = `
+                <span
+                    class="flex-shrink-0 w-8 h-8
+                           rounded-full bg-indigo-600
+                           text-white flex items-center
+                           justify-center font-bold">
+                    ${index + 1}
+                </span>
+
+                <span class="text-gray-700 leading-relaxed">
+                    ${step}
+                </span>
+            `;
+
+            instructions.appendChild(li);
+
+        });
+
+
+        // Show modal
+        document
+            .getElementById("view_productModal")
+            .classList
+            .remove("hidden");
+
+        document.body.classList.add("overflow-hidden");
+
+    }
+
+
+    function closeview_productModal() {
+
+        document
+            .getElementById("view_productModal")
+            .classList
+            .add("hidden");
+
+        document.body.classList.remove("overflow-hidden");
+
+    }
+
+
+    // Close when clicking outside
+    document
+        .getElementById("view_productModal")
+        .addEventListener("click", function(event) {
+
+            if (event.target === this) {
+                closeview_productModal();
+            }
+
+        });
+
+
+    // Close with Escape
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+            closeview_productModal();
+        }
+
+    });
+
+</script>
+
+{% endblock %} {% endcomment %}
+
+
+
+```html
+{% load static %}
+
+<!-- ================= PRODUCTS ================= -->
+
+<div id="products">
+
+    <div class="max-w-7xl mx-auto py-10 px-6">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+            {% for product in products %}
+
+            <div class="bg-white rounded-2xl shadow hover:shadow-xl transition duration-300 overflow-hidden">
+
+                <!-- Product Image -->
+                {% if product.image %}
+                    <img
+                        src="{{ product.image.url }}"
+                        class="w-full h-60 object-cover"
+                        alt="{{ product.product_name }}"
+                    >
+                {% else %}
+                    <img
+                        src="{% static 'images/no-image.png' %}"
+                        class="w-full h-60 object-cover"
+                        alt="No Image"
+                    >
+                {% endif %}
+
+                <!-- Product Details -->
+                <div class="p-5">
+
+                    <h2 class="text-lg font-bold text-gray-800">
+                        {{ product.product_name }}
+                    </h2>
+
+                    <p class="text-sm text-gray-500 mt-1">
+                        {{ product.brand }}
+                    </p>
+
+                    <p class="text-sm text-gray-500">
+                        {{ product.category }}
+                    </p>
+
+                    <!-- Price -->
+                    <div class="mt-3 flex items-center gap-3">
+
+                        <span class="text-2xl font-bold text-green-800">
+                            ₹{{ product.price }}
+                        </span>
+
+                        {% if product.discount_price %}
+                        <span class="text-gray-400 line-through">
+                            ₹{{ product.discount_price }}
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                    <!-- Stock -->
+                    <div class="mt-2">
+
+                        {% if product.stock > 0 %}
+
+                            <span class="text-green-600 font-semibold">
+                                In Stock
+                            </span>
+
+                        {% else %}
+
+                            <span class="text-red-600 font-semibold">
+                                Out of Stock
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="mt-5 flex gap-3">
+
+                        <!-- VIEW BUTTON -->
+                        <button
+                            type="button"
+                            onclick="openProductModal(
+                                '{{ product.id }}',
+                                '{{ product.product_name|escapejs }}',
+                                '{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no-image.png" %}{% endif %}',
+                                '{{ product.brand|escapejs }}',
+                                '{{ product.category|escapejs }}',
+                                '{{ product.price }}',
+                                '{{ product.discount_price }}',
+                                '{{ product.stock }}'
+                            )"
+                            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg"
+                        >
+                            View
+                        </button>
+
+
+                        <!-- ADD CART -->
+                        <a
+                            href="{% url 'add_to_cart' product.id %}"
+                            class="w-full bg-green-900 hover:bg-green-700 text-white text-center py-2 rounded-lg"
+                        >
+                            Add Cart
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-span-full text-center py-16">
+
+                <h2 class="text-3xl font-bold text-gray-500">
+                    No Products Found
+                </h2>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!--                 PRODUCT MODAL                     -->
+<!-- ================================================= -->
+
+<div
+    id="productModal"
+    class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm
+           flex items-center justify-center p-4"
+>
+
+    <div
+        class="bg-white w-full max-w-4xl max-h-[90vh]
+               rounded-2xl shadow-2xl overflow-hidden"
+    >
+
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between
+                    px-6 py-4 border-b bg-white">
+
+            <h2
+                id="modalTitle"
+                class="text-2xl font-bold text-gray-800"
+            >
+            </h2>
+
+            <button
+                type="button"
+                onclick="closeProductModal()"
+                class="w-10 h-10 rounded-full bg-gray-100
+                       hover:bg-gray-200 text-gray-600 text-xl"
+            >
+                &times;
+            </button>
+
+        </div>
+
+
+        <!-- Modal Body -->
+        <div class="overflow-y-auto max-h-[75vh] p-6">
+
+            <!-- Product Image -->
+            <img
+                id="modalImage"
+                src=""
+                alt=""
+                class="w-full h-80 object-cover rounded-xl mb-6"
+            >
+
+
+            <!-- Product Information -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-7">
+
+                <!-- Brand -->
+                <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                    <p class="text-sm text-gray-500">
+                        Brand
+                    </p>
+
+                    <p
+                        id="modalBrand"
+                        class="font-bold text-gray-800 mt-1"
+                    >
+                    </p>
+
+                </div>
+
+
+                <!-- Category -->
+                <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                    <p class="text-sm text-gray-500">
+                        Category
+                    </p>
+
+                    <p
+                        id="modalCategory"
+                        class="font-bold text-gray-800 mt-1"
+                    >
+                    </p>
+
+                </div>
+
+
+                <!-- Price -->
+                <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                    <p class="text-sm text-gray-500">
+                        Price
+                    </p>
+
+                    <p
+                        id="modalPrice"
+                        class="font-bold text-green-700 mt-1"
+                    >
+                    </p>
+
+                </div>
+
+
+                <!-- Stock -->
+                <div class="bg-gray-50 rounded-xl p-4 text-center">
+
+                    <p class="text-sm text-gray-500">
+                        Stock
+                    </p>
+
+                    <p
+                        id="modalStock"
+                        class="font-bold mt-1"
+                    >
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Price Details -->
+            <div class="bg-gray-50 rounded-xl p-5 mb-6">
+
+                <h3 class="text-xl font-bold text-gray-800 mb-4">
+                    Price Details
+                </h3>
+
+                <div class="flex justify-between mb-2">
+
+                    <span class="text-gray-500">
+                        Product Price
+                    </span>
+
+                    <span
+                        id="modalMainPrice"
+                        class="font-semibold"
+                    >
+                    </span>
+
+                </div>
+
+
+                <div class="flex justify-between">
+
+                    <span class="text-gray-500">
+                        Discount Price
+                    </span>
+
+                    <span
+                        id="modalDiscountPrice"
+                        class="font-semibold text-red-500"
+                    >
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Stock Status -->
+            <div
+                id="modalStockBox"
+                class="rounded-xl p-5"
+            >
+
+                <h3 class="text-xl font-bold mb-2">
+                    Availability
+                </h3>
+
+                <p id="modalStockMessage"></p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Modal Footer -->
+        <div
+            class="px-6 py-4 border-t flex justify-end gap-3"
+        >
+
+            <button
+                type="button"
+                onclick="closeProductModal()"
+                class="px-6 py-2.5 bg-gray-800 hover:bg-gray-900
+                       text-white font-semibold rounded-xl"
+            >
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!--                 JAVASCRIPT                       -->
+<!-- ================================================= -->
+
+<script>
+
+function openProductModal(
+    id,
+    name,
+    image,
+    brand,
+    category,
+    price,
+    discountPrice,
+    stock
+) {
+
+    // Title
+    document.getElementById("modalTitle").textContent = name;
+
+
+    // Image
+    document.getElementById("modalImage").src = image;
+    document.getElementById("modalImage").alt = name;
+
+
+    // Product Information
+    document.getElementById("modalBrand").textContent =
+        brand || "N/A";
+
+    document.getElementById("modalCategory").textContent =
+        category || "N/A";
+
+
+    // Price
+    document.getElementById("modalPrice").textContent =
+        "₹" + price;
+
+    document.getElementById("modalMainPrice").textContent =
+        "₹" + price;
+
+
+    // Discount Price
+    if (discountPrice && discountPrice !== "None") {
+
+        document.getElementById("modalDiscountPrice").textContent =
+            "₹" + discountPrice;
+
+    } else {
+
+        document.getElementById("modalDiscountPrice").textContent =
+            "No Discount";
+
+    }
+
+
+    // Stock
+    document.getElementById("modalStock").textContent =
+        stock;
+
+
+    // Stock Status
+    const stockBox =
+        document.getElementById("modalStockBox");
+
+    const stockMessage =
+        document.getElementById("modalStockMessage");
+
+
+    if (parseInt(stock) > 0) {
+
+        stockBox.className =
+            "rounded-xl p-5 bg-green-50 text-green-700";
+
+        stockMessage.textContent =
+            "✓ This product is currently available.";
+
+    } else {
+
+        stockBox.className =
+            "rounded-xl p-5 bg-red-50 text-red-700";
+
+        stockMessage.textContent =
+            "✕ This product is currently out of stock.";
+
+    }
+
+
+    // Open Modal
+    document
+        .getElementById("productModal")
+        .classList
+        .remove("hidden");
+
+
+    // Prevent background scrolling
+    document.body.classList.add("overflow-hidden");
+
+}
+
+
+/* ================= CLOSE MODAL ================= */
+
+function closeProductModal() {
+
+    document
+        .getElementById("productModal")
+        .classList
+        .add("hidden");
+
+    document.body.classList.remove("overflow-hidden");
+
+}
+
+
+/* ================= OUTSIDE CLICK ================= */
+
+document
+    .getElementById("productModal")
+    .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+
+            closeProductModal();
+
+        }
+
+    });
+
+
+/* ================= ESC KEY ================= */
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+        closeProductModal();
+
+    }
+
+});
+
+</script>
+

@@ -125,3 +125,9 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "10.68.123.193",
+]
