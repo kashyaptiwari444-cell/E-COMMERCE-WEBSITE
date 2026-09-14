@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Checkout</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="max-w-6xl mx-auto px-4 py-10">
+      <h1 class="text-3xl font-bold mb-8">Checkout</h1>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- ================= ADDRESS ================= -->
+
+        <div class="md:col-span-2 bg-white p-6 rounded-xl shadow">
+          <h2 class="text-2xl font-bold mb-6">Delivery Address</h2>
+
+          <form method="POST">
+            {% csrf_token %}
+
+            <div class="grid md:grid-cols-2 gap-5">
+              <div>
+                <label class="block mb-2 font-medium"> Full Name </label>
+
+                <input
+                  type="text"
+                  name="full_name"
+                  value="{{ user.name }}"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                />
+              </div>
+
+              <div>
+                <label class="block mb-2 font-medium"> Phone </label>
+
+                <input
+                  type="text"
+                  name="phone"
+                  value="{{ user.phone }}"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                />
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="block mb-2 font-medium"> Address </label>
+
+                <textarea
+                  name="address"
+                  required
+                  rows="4"
+                  class="w-full border rounded-lg px-4 py-3"
+                >
+{{ user.address }}</textarea
+                >
+              </div>
+
+              <div>
+                <label class="block mb-2 font-medium"> City </label>
+
+                <input
+                  type="text"
+                  name="city"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                />
+              </div>
+
+              <div>
+                <label class="block mb-2 font-medium"> State </label>
+
+                <input
+                  type="text"
+                  name="state"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                />
+              </div>
+
+              <div>
+                <label class="block mb-2 font-medium"> Pincode </label>
+
+                <input
+                  type="text"
+                  name="pincode"
+                  maxlength="10"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="mt-8 w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-4 rounded-lg"
+            >
+              Continue to Payment
+            </button>
+          </form>
+        </div>
+
+        <!-- ================= ORDER SUMMARY ================= -->
+
+        <div class="bg-white p-6 rounded-xl shadow h-fit">
+          <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+
+          {% for item in items %}
+
+          <div class="flex justify-between border-b py-4">
+            <div>
+              <p class="font-semibold">{{ item.product.product_name }}</p>
+
+              <p class="text-gray-500">Qty: {{ item.quantity }}</p>
+            </div>
+
+            <p class="font-semibold">₹{{ item.total_price }}</p>
+          </div>
+
+          {% endfor %}
+
+          <div class="flex justify-between mt-6">
+            <span> Subtotal </span>
+
+            <span> ₹{{ subtotal }} </span>
+          </div>
+
+          <div class="flex justify-between mt-3">
+            <span> Discount </span>
+
+            <span class="text-green-600"> -₹{{ discount }} </span>
+          </div>
+
+          <div class="flex justify-between mt-3">
+            <span> Platform Fee </span>
+
+            <span> ₹{{ platform_fee }} </span>
+          </div>
+
+          <hr class="my-5" />
+
+          <div class="flex justify-between text-xl font-bold">
+            <span> Total </span>
+
+            <span> ₹{{ total }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

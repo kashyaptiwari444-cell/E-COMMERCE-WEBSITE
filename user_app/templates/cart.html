@@ -589,13 +589,32 @@
 
                             <!-- ================= PLACE ORDER ================= -->
 
-                            <button
-                                class="w-full bg-yellow-400 hover:bg-yellow-500 py-4 rounded-lg text-xl font-semibold"
-                            >
+                    
+                            <a href="{% url 'checkout' %}"
+   class="w-full flex items-center justify-center gap-3
+          bg-gradient-to-r from-yellow-400 to-amber-500
+          hover:from-yellow-500 hover:to-amber-600
+          text-gray-900 py-4 px-6 rounded-xl
+          text-lg font-bold
+          shadow-lg hover:shadow-xl
+          transition-all duration-300
+          transform hover:-translate-y-1
+          active:scale-95">
 
-                                Place Order
+    <span>Proceed to Checkout</span>
 
-                            </button>
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"
+         stroke-width="2">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+    </svg>
+
+</a>
 
 
                         </div>

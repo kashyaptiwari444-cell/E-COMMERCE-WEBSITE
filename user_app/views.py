@@ -51,6 +51,7 @@ def login_page(request):
 
         except Register.DoesNotExist:
             messages.error(request, "Invalid Email or Password")
+            return render(request, "login.html")
 
     return render(request, "login.html")
 
@@ -187,3 +188,52 @@ def remove_cart_item(request, id):
     cart_item = get_object_or_404(CartItem, id=id)
     cart_item.delete()
     return redirect("cart")
+
+
+
+
+#============================= Check out (payment system ) ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+def checkout(request):
+
+    user_id = request.session.get("user_id")
+
+    if not user_id:
+        messages.error(request, "Please login first.")
+        return redirect("login")
+
+    user = get_object_or_404(Register, id=user_id)
+
+    cart = Cart.objects.filter(
+        user=user,
+        is_active=True
+    ).first()
+
+    if not cart:
+        messages.error(request, "Your cart is empty.")
+        return redirect("cart")
+
+    items = cart.items.all()
+
+    if not items.exists():
+        messages.error(request, "Your cart is empty.")
+        return redirect("cart")
+
+    # Calculate total from database
+    subtotal = sum(
+        item.price * item.quantity
+        for item in items
+    )
+
+    discount = 0
+    platform_fee = 10
+    total = subtotal - discount + platform_fee
+
+    return render(request, "checkout.html", {
+        "user": user,
+        "cart": cart,
+        "items": items,
+        "subtotal": subtotal,
+        "discount": discount,
+        "platform_fee": platform_fee,
+        "total": total,
+    })
