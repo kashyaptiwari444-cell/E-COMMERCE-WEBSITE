@@ -23,30 +23,6 @@
             {% csrf_token %}
 
             <div class="grid md:grid-cols-2 gap-5">
-              <div>
-                <label class="block mb-2 font-medium"> Full Name </label>
-
-                <input
-                  type="text"
-                  name="full_name"
-                  value="{{ user.name }}"
-                  required
-                  class="w-full border rounded-lg px-4 py-3"
-                />
-              </div>
-
-              <div>
-                <label class="block mb-2 font-medium"> Phone </label>
-
-                <input
-                  type="text"
-                  name="phone"
-                  value="{{ user.phone }}"
-                  required
-                  class="w-full border rounded-lg px-4 py-3"
-                />
-              </div>
-
               <div class="md:col-span-2">
                 <label class="block mb-2 font-medium"> Address </label>
 
@@ -55,44 +31,20 @@
                   required
                   rows="4"
                   class="w-full border rounded-lg px-4 py-3"
-                >
-{{ user.address }}</textarea
-                >
+                  placeholder="Enter your delivery address"
+                ></textarea>
               </div>
 
-              <div>
-                <label class="block mb-2 font-medium"> City </label>
-
-                <input
-                  type="text"
-                  name="city"
-                  required
-                  class="w-full border rounded-lg px-4 py-3"
-                />
-              </div>
-
-              <div>
-                <label class="block mb-2 font-medium"> State </label>
-
-                <input
-                  type="text"
-                  name="state"
-                  required
-                  class="w-full border rounded-lg px-4 py-3"
-                />
-              </div>
-
-              <div>
-                <label class="block mb-2 font-medium"> Pincode </label>
-
-                <input
-                  type="text"
-                  name="pincode"
-                  maxlength="10"
-                  required
-                  class="w-full border rounded-lg px-4 py-3"
-                />
-              </div>
+              <select
+                name="paymentMethod"
+                required
+                class="w-full border rounded-lg px-4 py-3"
+                required
+              >
+                <option value="">Select Payment Method</option>
+                <option value="cod">Cash on Delivery</option>
+                <option value="online">Online</option>
+              </select>
             </div>
 
             <button

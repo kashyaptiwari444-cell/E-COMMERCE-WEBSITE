@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Register, Cart, CartItem
+from .models import Register, Cart, CartItem, Order, OrderItem
 from admin_app.models import Category, Product
-from django.db.models import Sum
+import uuid
 
 
 #============================= Register Page ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -57,7 +57,7 @@ def login_page(request):
 
     
 
-
+login_required
 def homepage(request):
     categories = Category.objects.all().order_by("-id")
     products = Product.objects.all().order_by("-id")
@@ -180,7 +180,12 @@ def cart(request):
         "total": total,
         "platform_fee":platform_fee
     })
+
     
+    
+    
+
+
     
 
 #============================= Delete Cart Item ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -192,7 +197,10 @@ def remove_cart_item(request, id):
 
 
 
-#============================= Check out (payment system ) ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+#============================= Checkout Cart Item==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 def checkout(request):
 
     user_id = request.session.get("user_id")
@@ -218,7 +226,7 @@ def checkout(request):
         messages.error(request, "Your cart is empty.")
         return redirect("cart")
 
-    # Calculate total from database
+    # Calculate total
     subtotal = sum(
         item.price * item.quantity
         for item in items
@@ -227,6 +235,60 @@ def checkout(request):
     discount = 0
     platform_fee = 10
     total = subtotal - discount + platform_fee
+
+    # =========================
+    # POST = PLACE ORDER
+    # =========================
+    if request.method == "POST":
+
+        full_name = request.POST.get("full_name")
+        phone = request.POST.get("phone")
+        address = request.POST.get("address")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        pincode = request.POST.get("pincode")
+
+        # Generate unique order number
+        order_number = "ORD-" + uuid.uuid4().hex[:10].upper()
+
+        # Create Order
+        order = Order.objects.create(
+            user=user,
+            order_number=order_number,
+            total_amount=total,
+
+            full_name=full_name,
+            phone=phone,
+            address=address,
+            city=city,
+            state=state,
+            pincode=pincode,
+
+            payment_method="PhonePe",
+            payment_status="pending",
+            order_status="pending"
+        )
+
+        # Create Order Items
+        for item in items:
+
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.price
+            )
+
+        # Cart deactivate
+        cart.is_active = False
+        cart.save()
+
+        messages.success(
+            request,
+            "Order placed successfully!"
+        )
+
+        return redirect("order_success", order_id=order.id)
 
     return render(request, "checkout.html", {
         "user": user,
