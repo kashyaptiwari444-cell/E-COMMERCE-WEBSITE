@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>Order Success</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Order Placed Successfully!</h1>
+      <p>
+        Thank you for your order. Your order number is:
+        <strong>{{ order_number }}</strong>
+      </p>
+      <p>We will notify you once your order is shipped.</p>
+      <a href="{% url 'home' %}" class="btn">Continue Shopping</a>
+    </div>
+  </body>
+</html>

@@ -104,23 +104,45 @@ def add_to_cart(request, id):
 
     product = get_object_or_404(Product, id=id)
 
-    cart, created = Cart.objects.get_or_create(
-        user=user,
-        defaults={"is_active": True}
-    )
+    # User ka existing cart lo
+    cart = Cart.objects.filter(
+        user=user
+    ).first()
 
+    # Agar cart nahi hai to create karo
+    if not cart:
+        cart = Cart.objects.create(
+            user=user,
+            is_active=True
+        )
+
+    # Agar cart inactive tha to active karo
+    if not cart.is_active:
+        cart.is_active = True
+        cart.save()
+
+    # Check product already exists
     item = CartItem.objects.filter(
         cart=cart,
         product=product
     ).first()
 
-    price = product.discount_price if product.discount_price else product.price
+    # Product price
+    if product.discount_price > 0:
+        price = product.discount_price
+    else:
+        price = product.price
 
+    # Product already cart me hai
     if item:
+
         item.quantity += 1
         item.price = price
         item.save()
+
+    # Product cart me nahi hai
     else:
+
         CartItem.objects.create(
             cart=cart,
             product=product,
@@ -134,7 +156,53 @@ def add_to_cart(request, id):
 
 
 #============================= Cart View ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-# ============================= Cart View =============================
+# def cart(request):
+
+#     user_id = request.session.get("user_id")
+
+#     if not user_id:
+#         messages.error(request, "Please login first.")
+#         return redirect("login")
+
+#     user = get_object_or_404(Register, id=user_id)
+
+#     cart = Cart.objects.filter(
+#         user=user,
+#         is_active=True
+#     ).first()
+
+#     items = []
+#     subtotal = 0
+
+#     if cart:
+#         items = cart.items.all()
+#         subtotal = sum(item.product.price * item.quantity for item in items)
+
+#         discount = 0
+#         platform_fee = 10
+
+#         total = subtotal - discount + platform_fee
+        
+#         for item in items:
+#             if item.product.discount_price > 0:
+#                 item.discount_percentage = round(      #round are lower value in a point (.)
+#                     (
+#                         (item.product.discount_price - item.product.price)
+#                         / item.product.discount_price
+#                     ) * 100
+#                 )
+#             else:
+#                 item.discount_percentage = 0
+                
+        
+#     return render(request, "cart.html", {
+#         "items": items,
+#         "subtotal": subtotal,
+#         "discount": discount,
+#         "total": total,
+#         "platform_fee":platform_fee
+#     })
+
 
 def cart(request):
 
@@ -144,7 +212,10 @@ def cart(request):
         messages.error(request, "Please login first.")
         return redirect("login")
 
-    user = get_object_or_404(Register, id=user_id)
+    user = get_object_or_404(
+        Register,
+        id=user_id
+    )
 
     cart = Cart.objects.filter(
         user=user,
@@ -165,24 +236,21 @@ def cart(request):
 
         for item in items:
 
-            # Original Price
             original_price = item.product.price
 
-            # Selling Price
             if item.product.discount_price > 0:
                 selling_price = item.product.discount_price
             else:
                 selling_price = original_price
 
-            # Item Total
-            item.item_total = selling_price * item.quantity
+            item.item_total = (
+                selling_price * item.quantity
+            )
 
-            # Item Discount
             item.item_discount = (
                 original_price - selling_price
             ) * item.quantity
 
-            # Discount Percentage
             if original_price > 0 and selling_price < original_price:
 
                 item.discount_percentage = round(
@@ -193,15 +261,12 @@ def cart(request):
                 )
 
             else:
+
                 item.discount_percentage = 0
 
-            # Add to Subtotal
-            # subtotal += item.item_total
-            subtotal = 0
-            # Add Discount
+            subtotal += item.item_total
             discount += item.item_discount
 
-        # Final Total
         total = subtotal + platform_fee
 
     return render(request, "cart.html", {
@@ -213,13 +278,14 @@ def cart(request):
     })
 
 
-    
+
 
 #============================= Delete Cart Item ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 def remove_cart_item(request, id):
     cart_item = get_object_or_404(CartItem, id=id)
     cart_item.delete()
     return redirect("cart")
+
 
 
 
@@ -268,12 +334,9 @@ def checkout(request):
     # =========================
     if request.method == "POST":
 
-        full_name = request.POST.get("full_name")
-        phone = request.POST.get("phone")
+        full_name = user.name
+        phone = user.phone
         address = request.POST.get("address")
-        city = request.POST.get("city")
-        state = request.POST.get("state")
-        pincode = request.POST.get("pincode")
 
         # Generate unique order number
         order_number = "ORD-" + uuid.uuid4().hex[:10].upper()
@@ -287,9 +350,6 @@ def checkout(request):
             full_name=full_name,
             phone=phone,
             address=address,
-            city=city,
-            state=state,
-            pincode=pincode,
 
             payment_method="PhonePe",
             payment_status="pending",
@@ -326,3 +386,24 @@ def checkout(request):
         "platform_fee": platform_fee,
         "total": total,
     })
+    
+    
+    
+    
+    
+
+def my_orders(request):
+    user_id = request.session.get("user_id")
+
+    if not user_id:
+        messages.error(request, "Please login first.")
+        return redirect("login")
+
+    user = get_object_or_404(Register, id=user_id)
+
+    orders = Order.objects.filter(user=user).order_by("-id")
+
+    return render(request, "my_orders.html", {
+        "orders": orders
+    })
+    
