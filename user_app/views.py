@@ -212,10 +212,7 @@ def cart(request):
         messages.error(request, "Please login first.")
         return redirect("login")
 
-    user = get_object_or_404(
-        Register,
-        id=user_id
-    )
+    user = get_object_or_404(Register, id=user_id)
 
     cart = Cart.objects.filter(
         user=user,
@@ -229,10 +226,10 @@ def cart(request):
     total = 0
 
     if cart:
+        items = cart.items.select_related("product").all()
 
-        items = cart.items.all()
-
-        platform_fee = 10
+        if items.exists():
+            platform_fee = 10
 
         for item in items:
 
@@ -243,25 +240,20 @@ def cart(request):
             else:
                 selling_price = original_price
 
-            item.item_total = (
-                selling_price * item.quantity
-            )
+            item.item_total = selling_price * item.quantity
 
             item.item_discount = (
                 original_price - selling_price
             ) * item.quantity
 
             if original_price > 0 and selling_price < original_price:
-
                 item.discount_percentage = round(
                     (
                         (original_price - selling_price)
                         / original_price
                     ) * 100
                 )
-
             else:
-
                 item.discount_percentage = 0
 
             subtotal += item.item_total
@@ -375,7 +367,9 @@ def checkout(request):
             "Order placed successfully!"
         )
 
-        return redirect("order_success", order_id=order.id)
+        return render(request, "order_success.html", {
+            "order_id": order.id
+        })
 
     return render(request, "checkout.html", {
         "user": user,
@@ -390,20 +384,4 @@ def checkout(request):
     
     
     
-    
-
-def my_orders(request):
-    user_id = request.session.get("user_id")
-
-    if not user_id:
-        messages.error(request, "Please login first.")
-        return redirect("login")
-
-    user = get_object_or_404(Register, id=user_id)
-
-    orders = Order.objects.filter(user=user).order_by("-id")
-
-    return render(request, "my_orders.html", {
-        "orders": orders
-    })
     
