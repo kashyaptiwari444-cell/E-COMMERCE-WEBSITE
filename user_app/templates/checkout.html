@@ -11,6 +11,8 @@
 
   <body class="bg-gray-100">
     <div class="max-w-6xl mx-auto px-4 py-10">
+      <!-- ================= PAGE TITLE ================= -->
+
       <h1 class="text-3xl font-bold mb-8">Checkout</h1>
 
       <div class="grid md:grid-cols-3 gap-8">
@@ -23,6 +25,42 @@
             {% csrf_token %}
 
             <div class="grid md:grid-cols-2 gap-5">
+              <!-- Full Name -->
+
+              {% comment %}
+              <div class="md:col-span-2">
+                <label class="block mb-2 font-medium"> Full Name </label>
+
+                <input
+                  type="text"
+                  name="full_name"
+                  value="{{ user.name }}"
+                  placeholder="Enter your full name"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                />
+              </div>
+              {% endcomment %}
+
+              <!-- Phone -->
+
+              {% comment %}
+              <div>
+                <label class="block mb-2 font-medium"> Phone </label>
+
+                <input
+                  type="text"
+                  name="phone"
+                  value="{{ user.phone }}"
+                  placeholder="Enter your phone"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                />
+              </div>
+              {% endcomment %}
+
+              <!-- Address -->
+
               <div class="md:col-span-2">
                 <label class="block mb-2 font-medium"> Address </label>
 
@@ -35,17 +73,74 @@
                 ></textarea>
               </div>
 
-              <select
-                name="paymentMethod"
-                required
-                class="w-full border rounded-lg px-4 py-3"
-                required
-              >
-                <option value="">Select Payment Method</option>
-                <option value="cod">Cash on Delivery</option>
-                <option value="online">Online</option>
-              </select>
+              <!-- City -->
+
+              {% comment %}
+              <div>
+                <label class="block mb-2 font-medium"> City </label>
+
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="Enter your city"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                />
+              </div>
+              {% endcomment %}
+
+              <!-- State -->
+
+              {% comment %}
+              <div>
+                <label class="block mb-2 font-medium"> State </label>
+
+                <input
+                  type="text"
+                  name="state"
+                  placeholder="Enter your state"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                />
+              </div>
+              {% endcomment %}
+
+              <!-- Pincode -->
+
+              {% comment %}
+              <div>
+                <label class="block mb-2 font-medium"> Pincode </label>
+
+                <input
+                  type="text"
+                  name="pincode"
+                  placeholder="Enter your pincode"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                />
+              </div>
+              {% endcomment %}
+
+              <!-- Payment Method -->
+
+              <div>
+                <label class="block mb-2 font-medium"> Payment Method </label>
+
+                <select
+                  name="paymentMethod"
+                  required
+                  class="w-full border rounded-lg px-4 py-3"
+                >
+                  <option value="">Select Payment Method</option>
+
+                  <option value="cod">Cash on Delivery</option>
+
+                  <option value="online">Online Payment</option>
+                </select>
+              </div>
             </div>
+
+            <!-- Submit -->
 
             <button
               type="submit"
@@ -68,12 +163,36 @@
               <p class="font-semibold">{{ item.product.product_name }}</p>
 
               <p class="text-gray-500">Qty: {{ item.quantity }}</p>
+
+              {% if item.discount_percentage > 0 %}
+
+              <p class="text-sm text-green-600">
+                {{ item.discount_percentage }}% OFF
+              </p>
+
+              {% endif %}
             </div>
 
-            <p class="font-semibold">₹{{ item.total_price }}</p>
+            <div class="text-right">
+              {% if item.product.discount_price > 0 %}
+
+              <p class="text-sm text-gray-400 line-through">
+                ₹{{ item.product.discount_price }}
+              </p>
+
+              <p class="font-semibold">₹{{ item.product.price }}</p>
+
+              {% else %}
+
+              <p class="font-semibold">₹{{ item.product.discount_price }}</p>
+
+              {% endif %}
+            </div>
           </div>
 
           {% endfor %}
+
+          <!-- Subtotal -->
 
           <div class="flex justify-between mt-6">
             <span> Subtotal </span>
@@ -81,11 +200,15 @@
             <span> ₹{{ subtotal }} </span>
           </div>
 
+          <!-- Discount -->
+
           <div class="flex justify-between mt-3">
             <span> Discount </span>
 
             <span class="text-green-600"> -₹{{ discount }} </span>
           </div>
+
+          <!-- Platform Fee -->
 
           <div class="flex justify-between mt-3">
             <span> Platform Fee </span>
@@ -94,6 +217,8 @@
           </div>
 
           <hr class="my-5" />
+
+          <!-- Total -->
 
           <div class="flex justify-between text-xl font-bold">
             <span> Total </span>

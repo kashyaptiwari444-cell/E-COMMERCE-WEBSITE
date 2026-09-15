@@ -134,6 +134,8 @@ def add_to_cart(request, id):
 
 
 #============================= Cart View ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ============================= Cart View =============================
+
 def cart(request):
 
     user_id = request.session.get("user_id")
@@ -151,39 +153,64 @@ def cart(request):
 
     items = []
     subtotal = 0
+    discount = 0
+    platform_fee = 0
+    total = 0
 
     if cart:
-        items = cart.items.all()
-        subtotal = sum(item.product.price * item.quantity for item in items)
 
-        discount = 0
+        items = cart.items.all()
+
         platform_fee = 10
 
-        total = subtotal - discount + platform_fee
-        
         for item in items:
+
+            # Original Price
+            original_price = item.product.price
+
+            # Selling Price
             if item.product.discount_price > 0:
-                item.discount_percentage = round(      #round are lower value in a point (.)
+                selling_price = item.product.discount_price
+            else:
+                selling_price = original_price
+
+            # Item Total
+            item.item_total = selling_price * item.quantity
+
+            # Item Discount
+            item.item_discount = (
+                original_price - selling_price
+            ) * item.quantity
+
+            # Discount Percentage
+            if original_price > 0 and selling_price < original_price:
+
+                item.discount_percentage = round(
                     (
-                        (item.product.discount_price - item.product.price)
-                        / item.product.discount_price
+                        (original_price - selling_price)
+                        / original_price
                     ) * 100
                 )
+
             else:
                 item.discount_percentage = 0
-                
-        
+
+            # Add to Subtotal
+            # subtotal += item.item_total
+            subtotal = 0
+            # Add Discount
+            discount += item.item_discount
+
+        # Final Total
+        total = subtotal + platform_fee
+
     return render(request, "cart.html", {
         "items": items,
         "subtotal": subtotal,
         "discount": discount,
+        "platform_fee": platform_fee,
         "total": total,
-        "platform_fee":platform_fee
     })
-
-    
-    
-    
 
 
     
@@ -228,7 +255,7 @@ def checkout(request):
 
     # Calculate total
     subtotal = sum(
-        item.price * item.quantity
+        item.product.price * item.quantity
         for item in items
     )
 
