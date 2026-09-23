@@ -187,7 +187,7 @@
 
 
 <!-- ================= JAVASCRIPT ================= -->
-
+{% comment %} 
 <script>
 
 function openProductModal(
@@ -317,7 +317,7 @@ document.addEventListener("keydown", function(event) {
 });
 
 </script>
-
+ {% endcomment %}
 
 
 
@@ -713,7 +713,7 @@ document.addEventListener("keydown", function(event) {
                     </a> {% endcomment %}
 
                                 
-                    <button
+                    {% comment %} <button
                         type="button"
                         class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg"
                         onclick="openProductModal(
@@ -728,14 +728,21 @@ document.addEventListener("keydown", function(event) {
                         )"
                     >
                         View
-                    </button>
+                    </button> {% endcomment %}
 
+                     {% comment %} <a href="{% url 'view_products' product.id %}"
+                       class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg">
+                        View
+                    </a> {% endcomment %}
+                   <a href="{% url 'view_products' product.id %}"
+   class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg">
+    View
+</a>
 
-
-                    <a href="{% url 'add_to_cart' product.id %}"
-                       class="w-full bg-green-900 hover:bg-green-700 text-white text-center py-2 rounded-lg">
-                        Add Cart
-                    </a>
+<a href="{% url 'add_to_cart' product.id %}"
+   class="w-full bg-green-900 hover:bg-green-700 text-white text-center py-2 rounded-lg">
+    Add to Cart
+</a>
 
                 </div>
 

@@ -131,3 +131,6 @@ ALLOWED_HOSTS = [
     "localhost",
     "10.68.123.193",
 ]
+
+
+LOGIN_URL = "/"

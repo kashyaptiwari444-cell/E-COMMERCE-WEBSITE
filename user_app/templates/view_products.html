@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Product Details</title>
+    <title>{{ view_products.product_name }} | Product Details</title>
 
     <style>
       * {
@@ -30,7 +30,6 @@
         display: inline-block;
         margin-top: 38px;
         margin-bottom: 45px;
-
         color: #ff5a00;
         text-decoration: none;
         font-size: 20px;
@@ -43,23 +42,41 @@
         margin-right: 8px;
       }
 
+      .back:hover {
+        color: #e64d00;
+      }
+
       /* Product Section */
       .product {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 52px;
         align-items: start;
+        margin-bottom: 60px;
+      }
+
+      /* Product Image Box */
+      .image-box {
+        width: 100%;
+        height: 610px;
+        background: #f8fafc;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        overflow: hidden;
       }
 
       /* Product Image */
       .product-image {
         width: 100%;
-        height: 610px;
-        object-fit: cover;
-
-        border-radius: 20px;
-
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        height: 100%;
+        object-fit: contain;
+        padding: 25px;
+        display: block;
       }
 
       /* Product Details */
@@ -99,6 +116,7 @@
       .category {
         font-size: 19px;
         margin-bottom: 48px;
+        color: #4b5563;
       }
 
       .category strong {
@@ -115,29 +133,34 @@
 
       /* Cart Button */
       .cart-btn {
+        width: 100%;
+        max-width: 350px;
         border: none;
-        background: #ff6200;
+        background: #14532d;
         color: white;
-
-        padding: 18px 43px;
+        padding: 18px 30px;
         border-radius: 15px;
-
         font-size: 20px;
         font-weight: 600;
-
         cursor: pointer;
 
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 14px;
 
+        text-decoration: none;
         transition: 0.3s ease;
       }
 
       .cart-btn:hover {
-        background: #e95000;
+        background: #166534;
         transform: translateY(-2px);
-        box-shadow: 0 8px 18px rgba(255, 98, 0, 0.25);
+        box-shadow: 0 8px 18px rgba(20, 83, 45, 0.25);
+      }
+
+      .cart-btn:active {
+        transform: scale(0.97);
       }
 
       .cart-icon {
@@ -155,7 +178,7 @@
           gap: 35px;
         }
 
-        .product-image {
+        .image-box {
           height: 450px;
         }
 
@@ -165,15 +188,23 @@
       }
 
       @media (max-width: 500px) {
+        .container {
+          width: 92%;
+        }
+
         .back {
           margin-top: 25px;
           margin-bottom: 25px;
           font-size: 18px;
         }
 
-        .product-image {
+        .image-box {
           height: 330px;
           border-radius: 15px;
+        }
+
+        .product-image {
+          padding: 15px;
         }
 
         .details h1 {
@@ -201,8 +232,7 @@
         }
 
         .cart-btn {
-          width: 100%;
-          justify-content: center;
+          max-width: 100%;
         }
       }
     </style>
@@ -211,55 +241,47 @@
   <body>
     <div class="container">
       <!-- Back -->
-      <a href="#" class="back"> <span>←</span> Back </a>
+      <a href="{% url 'homepage' %}" class="back"> <span>←</span> Back </a>
 
       <!-- Product -->
-
-      {% for i in products %}{% endfor %}
       <div class="product">
         <!-- Image -->
-        <img
-          src="{{ i.image.url }}"
-          alt="Pani Puri"
-          class="{{i.product_name}}"
-        />
+        <div class="image-box">
+          <img
+            src="{{ view_products.image.url }}"
+            alt="{{ view_products.product_name }}"
+            class="product-image"
+          />
+        </div>
 
         <!-- Details -->
         <div class="details">
-          <h1>{{ i.product_name }}</h1>
+          <h1>{{ view_products.product_name }}</h1>
 
-          <p class="description">{{ i.description }}</p>
+          <p class="description">{{ view_products.description }}</p>
 
+          <!-- Rating -->
           <div class="rating">
             <span class="star">★</span>
-            <span>{{ i.rating }}</span>
+            <span>{{ view_products.rating }}</span>
           </div>
 
+          <!-- Category -->
           <div class="category">
-            <strong>Category :</strong> {{ i.category }}
+            <strong>Category :</strong>
+            {{ view_products.category }}
           </div>
 
-          <div class="price">₹ {{ i.price }}</div>
-          {% comment %}
-          <button class="cart-btn" onclick="addToCart()">
+          <!-- Price -->
+          <div class="price">₹ {{ view_products.price }}</div>
+
+          <!-- Add To Cart -->
+          <a href="{% url 'add_to_cart' view_products.id %}" class="cart-btn">
             <span class="cart-icon">🛒</span>
             Add To Cart
-          </button>
-          {% endcomment %}
-          <a
-            href="{% url 'add_to_cart' product.id %}"
-            class="w-full bg-green-900 hover:bg-green-700 text-white text-center py-2 rounded-lg"
-          >
-            Add Cart
           </a>
         </div>
       </div>
     </div>
-
-    <script>
-      function addToCart() {
-        alert("Pani Puri added to cart!");
-      }
-    </script>
   </body>
 </html>

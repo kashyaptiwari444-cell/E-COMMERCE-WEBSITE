@@ -37,27 +37,27 @@ def register_page(request):
 def login_page(request):
     if request.method == "POST":
         email = request.POST.get("email")
-        pwd = request.POST.get("password")
+        password = request.POST.get("password")
 
-        try:
-            user = Register.objects.get(email=email, pwd=pwd)
+        user = Register.objects.filter(
+            email=email,
+            pwd=password
+        ).first()
 
+        if user:
             request.session["user_id"] = user.id
             request.session["user_name"] = user.name
             request.session["user_email"] = user.email
 
-            messages.success(request, "Login Successful")
             return redirect("homepage")
 
-        except Register.DoesNotExist:
-            messages.error(request, "Invalid Email or Password")
-            return render(request, "login.html")
+        messages.error(request, "Invalid email or password.")
 
     return render(request, "login.html")
 
     
-
-login_required
+#====================================================================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# @login_required
 def homepage(request):
     categories = Category.objects.all().order_by("-id")
     products = Product.objects.all().order_by("-id")
@@ -65,7 +65,6 @@ def homepage(request):
     return render(request, "homepage.html", {
         "categories": categories,
         "products":products,
-      
     })
 
 #============================= User Main DashBoard ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -77,8 +76,6 @@ def user_main_dash(request):
 #============================= User DashBoard ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 def user_dash(request):
     return render(request, "user_dash.html")
-
-
 
 
 
