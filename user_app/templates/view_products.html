@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Product Details</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #fff;
+        color: #1f2937;
+      }
+
+      .container {
+        width: 80%;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      /* Back Button */
+      .back {
+        display: inline-block;
+        margin-top: 38px;
+        margin-bottom: 45px;
+
+        color: #ff5a00;
+        text-decoration: none;
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      .back span {
+        font-size: 30px;
+        vertical-align: -2px;
+        margin-right: 8px;
+      }
+
+      /* Product Section */
+      .product {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 52px;
+        align-items: start;
+      }
+
+      /* Product Image */
+      .product-image {
+        width: 100%;
+        height: 610px;
+        object-fit: cover;
+
+        border-radius: 20px;
+
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Product Details */
+      .details {
+        padding-top: 5px;
+      }
+
+      .details h1 {
+        font-size: 50px;
+        line-height: 1.1;
+        margin-bottom: 28px;
+        color: #1f2937;
+      }
+
+      .description {
+        font-size: 20px;
+        color: #4b5563;
+        margin-bottom: 38px;
+        line-height: 1.5;
+      }
+
+      /* Rating */
+      .rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 23px;
+        margin-bottom: 35px;
+      }
+
+      .star {
+        color: #fbbf24;
+        font-size: 25px;
+      }
+
+      /* Category */
+      .category {
+        font-size: 19px;
+        margin-bottom: 48px;
+      }
+
+      .category strong {
+        color: #111827;
+      }
+
+      /* Price */
+      .price {
+        color: #ff4d00;
+        font-size: 38px;
+        font-weight: 700;
+        margin-bottom: 42px;
+      }
+
+      /* Cart Button */
+      .cart-btn {
+        border: none;
+        background: #ff6200;
+        color: white;
+
+        padding: 18px 43px;
+        border-radius: 15px;
+
+        font-size: 20px;
+        font-weight: 600;
+
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        gap: 14px;
+
+        transition: 0.3s ease;
+      }
+
+      .cart-btn:hover {
+        background: #e95000;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(255, 98, 0, 0.25);
+      }
+
+      .cart-icon {
+        font-size: 23px;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .container {
+          width: 90%;
+        }
+
+        .product {
+          grid-template-columns: 1fr;
+          gap: 35px;
+        }
+
+        .product-image {
+          height: 450px;
+        }
+
+        .details h1 {
+          font-size: 40px;
+        }
+      }
+
+      @media (max-width: 500px) {
+        .back {
+          margin-top: 25px;
+          margin-bottom: 25px;
+          font-size: 18px;
+        }
+
+        .product-image {
+          height: 330px;
+          border-radius: 15px;
+        }
+
+        .details h1 {
+          font-size: 34px;
+          margin-bottom: 18px;
+        }
+
+        .description {
+          font-size: 17px;
+          margin-bottom: 25px;
+        }
+
+        .rating {
+          font-size: 19px;
+          margin-bottom: 25px;
+        }
+
+        .category {
+          margin-bottom: 30px;
+        }
+
+        .price {
+          font-size: 32px;
+          margin-bottom: 30px;
+        }
+
+        .cart-btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Back -->
+      <a href="#" class="back"> <span>←</span> Back </a>
+
+      <!-- Product -->
+
+      {% for i in products %}{% endfor %}
+      <div class="product">
+        <!-- Image -->
+        <img
+          src="{{ i.image.url }}"
+          alt="Pani Puri"
+          class="{{i.product_name}}"
+        />
+
+        <!-- Details -->
+        <div class="details">
+          <h1>{{ i.product_name }}</h1>
+
+          <p class="description">{{ i.description }}</p>
+
+          <div class="rating">
+            <span class="star">★</span>
+            <span>{{ i.rating }}</span>
+          </div>
+
+          <div class="category">
+            <strong>Category :</strong> {{ i.category }}
+          </div>
+
+          <div class="price">₹ {{ i.price }}</div>
+          {% comment %}
+          <button class="cart-btn" onclick="addToCart()">
+            <span class="cart-icon">🛒</span>
+            Add To Cart
+          </button>
+          {% endcomment %}
+          <a
+            href="{% url 'add_to_cart' product.id %}"
+            class="w-full bg-green-900 hover:bg-green-700 text-white text-center py-2 rounded-lg"
+          >
+            Add Cart
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function addToCart() {
+        alert("Pani Puri added to cart!");
+      }
+    </script>
+  </body>
+</html>

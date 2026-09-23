@@ -83,9 +83,9 @@ def user_dash(request):
 
 
 
-def view_product(request):
-    view_products = get_object_or_404(CartItem, id=id)
-    return render(request, "view_product.html", {"view_products":view_products})
+def view_products(request, id):
+    view_products = get_object_or_404(Product, id=id)
+    return render(request, "view_products.html", {"view_products":view_products})
 
 
 
@@ -380,8 +380,3 @@ def checkout(request):
         "platform_fee": platform_fee,
         "total": total,
     })
-    
-    
-    
-    
-    
