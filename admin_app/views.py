@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Product, Category, SubCategory, Brand
 from django.utils.text import slugify
-
-from user_app.models import Register
+from user_app.models import Register, Order
 
 def admin_dash(request):
     return render(request, 'admin_dash.html')
@@ -348,3 +347,17 @@ def delete_brand(request, id):
 def manageUser(request):
     users = Register.objects.all().order_by("-id")
     return render(request, "users/manageUser.html", {"users":users})
+
+
+
+
+
+#======================= Manage Order ============================================
+def manageOrder(request):
+    orders = Order.objects.select_related("user").prefetch_related(
+        "items__product"
+    ).order_by("-created_at")
+
+    return render(request, "manage_order.html", {
+        "orders": orders
+    })

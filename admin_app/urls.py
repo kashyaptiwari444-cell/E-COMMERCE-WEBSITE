@@ -23,4 +23,6 @@ urlpatterns = [
     
     path('brands/manageUser/', views.manageUser, name="manageUser"),
     
+    path('manageOrder/', views.manageOrder, name="manageOrder"),
+    
 ]

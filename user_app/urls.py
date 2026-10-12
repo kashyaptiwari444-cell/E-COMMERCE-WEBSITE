@@ -18,6 +18,6 @@ urlpatterns = [
     
     path("checkout/", views.checkout, name="checkout"),
     
-    # path("order/", views.my_orders, name="my_orders"),
+    path("order/", views.my_order, name="my_order"),
         
 ]

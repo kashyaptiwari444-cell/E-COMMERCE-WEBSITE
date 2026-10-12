@@ -377,3 +377,21 @@ def checkout(request):
         "platform_fee": platform_fee,
         "total": total,
     })
+
+
+
+#============================== My Orders ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+def my_order(request):
+    user_id = request.session.get("user_id")
+
+    if not user_id:
+        messages.error(request, "Please login first.")
+        return redirect("login")
+
+    user = get_object_or_404(Register, id=user_id)
+
+    orders = Order.objects.filter(user=user).order_by("-id")
+
+    return render(request, "my_order.html", {
+        "orders": orders
+    })

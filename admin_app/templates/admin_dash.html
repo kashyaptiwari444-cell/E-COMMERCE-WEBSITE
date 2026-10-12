@@ -366,6 +366,7 @@
           </div>
         </div>
 
+        {% comment %} 
         <!-- Navigation -->
         <nav class="flex-1 px-4 py-6 space-y-2">
           <p class="text-xs uppercase text-slate-500 font-semibold px-3 mb-3">
@@ -413,7 +414,7 @@
           </a>
 
           <a
-            href="#orders"
+            href="{% url "manageOrder" %}"
             class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition"
           >
             <span>🛒</span>
@@ -426,7 +427,7 @@
           >
             <span>🎟️</span>
             Coupons
-          </a>
+          </a> {% endcomment %}
 
           <div class="pt-6">
             <p class="text-xs uppercase text-slate-500 font-semibold px-3 mb-3">
@@ -794,6 +795,7 @@
               class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition"
             >
               <div class="flex justify-between">
+                
                 <div
                   class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-2xl"
                 >
@@ -815,7 +817,7 @@
 
               <div class="grid grid-cols-2 gap-3 mt-5">
                 <a
-                  href="#"
+                  href="{% url "manageOrder" %}"
                   class="text-center bg-red-500 text-white py-2.5 rounded-xl hover:bg-red-600 transition"
                 >
                   View Orders
@@ -967,7 +969,7 @@
 
             <!-- QUICK ACTIONS -->
 
-            <div
+            {% comment %} <div
               class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6"
             >
               <h2 class="text-lg font-bold">Quick Actions</h2>
@@ -1053,7 +1055,7 @@
           <footer class="mt-10 pt-6 border-t border-slate-200 text-center">
             <p class="text-sm text-slate-500">© 2026 E-Commerce Admin Panel</p>
           </footer>
-        </section>
+        </section> {% endcomment %}
       </main>
     </div>
   </body>

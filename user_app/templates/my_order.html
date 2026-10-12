@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Apna Shop Footer</title>
+
+
+  <style>
+    
+.my-orders-container {
+    max-width: 1050px;
+    margin: 40px auto;
+    padding: 0 20px;
+    color: #222;
+    font-family: Arial, sans-serif;
+}
+
+.orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.orders-header h1 {
+    font-size: 30px;
+    margin: 0 0 8px;
+}
+
+.orders-header p {
+    color: #777;
+    margin: 0;
+}
+
+.orders-count {
+    background: #fff1e8;
+    color: #e76521;
+    padding: 10px 16px;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.order-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+.order-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px;
+    border-bottom: 1px solid #eee;
+}
+
+.label {
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin: 0 0 7px;
+}
+
+.order-id {
+    font-size: 17px;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.status-badge {
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.processing, .shipped {
+    background: #dcecff;
+    color: #1556a0;
+}
+
+.delivered {
+    background: #d9f7e5;
+    color: #187443;
+}
+
+.cancelled {
+    background: #ffe0e0;
+    color: #bd2525;
+}
+
+.order-info {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    padding: 22px;
+    background: #fafafa;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.info-item span {
+    color: #888;
+    font-size: 13px;
+}
+
+.info-item strong {
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.ordered-foods {
+    padding: 22px;
+}
+
+.ordered-foods > h3 {
+    margin: 0 0 15px;
+    font-size: 18px;
+}
+
+.food-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.food-details h4 {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+.food-details p {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+}
+
+.food-price {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.food-status {
+    color: #777;
+    font-size: 13px;
+}
+
+.food-status strong {
+    color: #b7791f;
+    margin-left: 4px;
+}
+
+.cancel-btn {
+    background: #fff;
+    color: #e53935;
+    border: 1px solid #e53935;
+    border-radius: 7px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cancel-btn:hover {
+    background: #e53935;
+    color: white;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 22px;
+    background: #fafafa;
+}
+
+.order-footer span {
+    color: #666;
+}
+
+.order-footer strong {
+    font-size: 21px;
+    color: #e76521;
+}
+
+.empty-orders {
+    text-align: center;
+    background: #fff;
+    padding: 60px 20px;
+    border-radius: 14px;
+    border: 1px solid #eee;
+}
+
+.empty-orders p {
+    color: #777;
+}
+
+.shop-btn {
+    display: inline-block;
+    background: #e76521;
+    color: #fff;
+    text-decoration: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+    .my-orders-container {
+        margin: 25px auto;
+        padding: 0 12px;
+    }
+
+    .orders-header h1 {
+        font-size: 24px;
+    }
+
+    .order-top,
+    .ordered-foods,
+    .order-info {
+        padding: 16px;
+    }
+
+    .order-info {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .food-item {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+    }
+
+    .food-status {
+        grid-column: 1;
+    }
+
+    .food-item form {
+        grid-column: 1 / -1;
+    }
+
+    .food-item form button {
+        width: 100%;
+    }
+
+    .order-footer {
+        padding: 16px;
+    }
+}
+</style>
+
+<body>
+
+    {% csrf_token %}
+  {% include 'header.html' %}
+
+
+
+
+{% load static %} 
+<div class="my-orders-container">
+  <div class="orders-header">
+    <div>
+      <h1>My Orders</h1>
+      <p>Track and manage your orders</p>
+    </div>
+    <span class="orders-count"> {{ orders|length }} Orders </span>
+  </div>
+
+  {% for order in orders %}
+  <div class="order-card">
+    <!-- Order Header -->
+    <div class="order-top">
+      <div>
+        <p class="label">ORDER ID</p>
+        <h3 class="order-id">#{{ order.id }}</h3>
+      </div>
+
+      <span
+        class="status-badge {% if order.status == 'pending' %}pending {% elif order.status == 'processing' %}processing {% elif order.status == 'shipped' %}shipped {% elif order.status == 'delivered' %}delivered {% elif order.status == 'cancelled' %}cancelled {% endif %}"
+      >
+        {{ order.status|title }}
+      </span>
+    </div>
+
+    <!-- Order Information -->
+    <div class="order-info">
+      <div class="info-item">
+        <span>Payment</span>
+        <strong>{{ order.payment_method|title }}</strong>
+      </div>
+
+      <div class="info-item">
+        <span>Address</span>
+        <strong>{{ order.address }}</strong>
+      </div>
+
+      <div class="info-item">
+        <span>Order Date</span>
+        <strong>{{ order.created_at|date:"d/m/Y" }}</strong>
+      </div>
+    </div>
+
+    <!-- Ordered Foods -->
+    <div class="ordered-foods">
+      <h3>Ordered Foods</h3>
+
+      {% for item in order.items.all %}
+      <div class="food-item">
+        <div class="food-details">
+          <h4>{{ item.food.name }}</h4>
+          <p>Quantity: {{ item.quantity }}</p>
+        </div>
+
+        <div class="food-price">₹{{ item.price|floatformat:2 }}</div>
+
+        <div class="food-status">
+          <span>Status:</span>
+          <strong>{{ order.status|title }}</strong>
+        </div>
+
+        {% if order.status == 'pending' %}
+        <form method="POST" action="{% url 'cancel_order' order.id %}">
+          {% csrf_token %}
+          <button type="submit" class="cancel-btn">Cancel Order</button>
+        </form>
+        {% endif %}
+      </div>
+      {% empty %}
+      <p>No food items found in this order.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Total -->
+    <div class="order-footer">
+      <span>Total Amount</span>
+      <strong>₹{{ order.total_amount|floatformat:2 }}</strong>
+    </div>
+  </div>
+
+  {% empty %}
+  <div class="empty-orders">
+    <h2>No orders yet!</h2>
+    <p>Your ordered foods will appear here.</p>
+    <a href="/" class="shop-btn">Explore Foods</a>
+  </div>
+  {% endfor %}
+</div>
+
+ </body>
+</html>
