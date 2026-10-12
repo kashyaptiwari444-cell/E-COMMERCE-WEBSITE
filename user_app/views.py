@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -381,6 +383,8 @@ def checkout(request):
 
 
 #============================== My Orders ==========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ============================== My Orders ==============================
+
 def my_order(request):
     user_id = request.session.get("user_id")
 
@@ -390,8 +394,26 @@ def my_order(request):
 
     user = get_object_or_404(Register, id=user_id)
 
-    orders = Order.objects.filter(user=user).order_by("-id")
+    orders = Order.objects.filter(user=user).order_by("-created_at")
+
+    sort_by = request.GET.get("sort", "")
+
+    if sort_by == "price_low":
+        orders = orders.order_by("total_amount")
+
+    elif sort_by == "price_high":
+        orders = orders.order_by("-total_amount")
+
+    elif sort_by == "newest":
+        orders = orders.order_by("-created_at")
+
+    elif sort_by == "oldest":
+        orders = orders.order_by("created_at")
+
+    elif sort_by == "status":
+        orders = orders.order_by("order_status")
 
     return render(request, "my_order.html", {
-        "orders": orders
+        "orders": orders,
+        "sort_by": sort_by,
     })

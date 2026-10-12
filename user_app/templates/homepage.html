@@ -643,8 +643,51 @@ document.addEventListener("keydown", function(event) {
                 class="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
         </form>
+
+    
+<form method="GET" class="ml-4">
+    <select
+        name="sort"
+        onchange="this.form.submit()"
+        class="w-64 border-2 border-orange-500 rounded-xl
+               px-5 py-3 text-lg bg-white text-black
+               outline-none cursor-pointer
+               focus:border-orange-600"
+    >
+        <option value="" {% if not sort_by %}select
+        ed{% endif %}>
+            Sort By
+        </option>
+
+        <option value="price_low"
+            {% if sort_by == "price_low" %}selected{% endif %}>
+            Price: Low to High
+        </option>
+
+        <option value="price_high"
+            {% if sort_by == "price_high" %}selected{% endif %}>
+            Price: High to Low
+        </option>
+
+        <option value="newest"
+            {% if sort_by == "newest" %}selected{% endif %}>
+            Newest First
+        </option>
+
+        <option value="oldest"
+            {% if sort_by == "oldest" %}selected{% endif %}>
+            Oldest First
+        </option>
+
+        <option value="status"
+            {% if sort_by == "status" %}selected{% endif %}>
+            Order Status
+        </option>
+    </select>
+</form>
     </div>
 </div>
+
 
 
 
